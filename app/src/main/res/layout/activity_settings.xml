@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profileImage"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/profile_image"
+        android:layout_alignParentTop="true"
+        app:civ_border_width="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        app:civ_border_color="@color/green"
+        />
+
+    <EditText
+        android:id="@+id/setUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profileImage"
+        android:inputType="text"
+        android:autofillHints="no"
+        android:maxLines="1"
+        android:hint="@string/userName"
+        android:drawableStart="@drawable/edit_profile"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@drawable/inputs"
+        android:layout_margin="22dp"
+        android:padding="6dp"
+        tools:ignore="LabelFor" />
+
+    <EditText
+        android:id="@+id/setUserStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setUserName"
+        android:inputType="textMultiLine"
+        android:autofillHints="no"
+        android:hint="@string/userStatus"
+        android:drawableStart="@drawable/edit_status"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@drawable/inputs"
+        android:layout_margin="22dp"
+        android:padding="6dp"
+        tools:ignore="LabelFor" />
+
+    <Button
+        android:id="@+id/saveSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setUserStatus"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:background="@color/green"
+        android:layout_margin="22dp"
+        android:padding="6dp"
+        android:textAllCaps="false"
+        android:text="@string/save"
+        android:textSize="21dp"
+         />
+</RelativeLayout>

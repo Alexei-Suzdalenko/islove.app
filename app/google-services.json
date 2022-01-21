@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "625811824205",
+    "firebase_url": "https://this-is-love-app-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "this-is-love-app",
+    "storage_bucket": "this-is-love-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625811824205:android:3a88958202b4ddcc724604",
+        "android_client_info": {
+          "package_name": "islove.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "625811824205-72dt8mt7us235gsegha7b0ai6lnbgmp2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCFO8CT92LwjGEZstCE3pc_GyCGP3D2mE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "625811824205-72dt8mt7us235gsegha7b0ai6lnbgmp2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
