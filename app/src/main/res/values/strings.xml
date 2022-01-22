@@ -17,7 +17,7 @@
     <string name="needNewAccount">Need new account</string>
     <string name="orLoginUsingYour">Or login using your</string>
     <string name="pleaseEnterEmailPassword">Please enter email and password</string>
-    <string name="accountCreatedSuccessfully">Account created sucessfully</string>
+    <string name="accountCreatedSuccessfully">Account created successfully</string>
     <string name="errorCreatedAccount">Error creating account</string>
     <string name="creatingNewAccount">Creating new account</string>
     <string name="pleaseWait">Please wait</string>
@@ -30,7 +30,7 @@
     <string name="save">Save</string>
     <string name="writeYourNameStatus">Please write your name and status</string>
     <string name="profileUpdatedSuccessfuly">Profile updated successfuly</string>
-    <string name="setUpdateProfileInformation"><![CDATA[Please set & update profile information]]></string>
+    <string name="setUpdateProfileInformation">Please set and update profile information</string>
     <string name="createGroup">Create group</string>
     <string name="enterGroputName">Enter group name</string>
     <string name="appNameGroup">Is love group name</string>
@@ -43,4 +43,13 @@
     <string name="inputPhoneNumber">Input phone number</string>
     <string name="verificationCode">Verification code</string>
     <string name="sendVerCode">Send verification code</string>
+    <string name="verify">Verify</string>
+    <string name="insertNumberPhone">Insert phone number</string>
+    <string name="codeSent">Code has been sent, please check</string>
+    <string name="insertVerificationCode">Insert verification code</string>
+    <string name="phoneVerification">Phone verification</string>
+    <string name="codeVerification">Code verification</string>
+    <string name="conglarationsYou">Congratulations, you are logged in successfully</string>
+    <string name="error">Error</string>
+    <string name="imageUploaded">Image uploaded</string>
 </resources>

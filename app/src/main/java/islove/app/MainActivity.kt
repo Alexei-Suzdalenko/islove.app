@@ -55,9 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.findFrends -> {
-                return true
-            }
+            R.id.findFrends -> { startActivity(Intent(this, FindFrendsActivity::class.java)); return true; }
             R.id.createGroup -> { RequestNewGroup()
                return  true
             }

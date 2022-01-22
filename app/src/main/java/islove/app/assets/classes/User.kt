@@ -6,5 +6,6 @@ data class User (
     var email: String = "",
     var password: String = "",
     var status: String = "",
-    var image: String = ""
+    var image: String = "",
+    var phone: String = ""
 )

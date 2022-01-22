@@ -18,7 +18,7 @@ class CreateNewAccount(val c: RegisterActivity? = null) {
             val mAuth = FirebaseAuth.getInstance()
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { it ->
                 if(it.isSuccessful) {
-                    SaveNewUserData().saveNewUser(email, password)
+                    SaveNewUserData().saveNewUser(email, password, "")
                     SendUserToMainActivity()
                     App.showToast(c!!,  R.string.accountCreatedSuccessfully)
                 } else {

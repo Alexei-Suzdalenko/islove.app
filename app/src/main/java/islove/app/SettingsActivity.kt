@@ -1,40 +1,43 @@
 package islove.app
-import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import islove.app.assets.api.SaveNewUserData
 import islove.app.assets.classes.App
 import kotlinx.android.synthetic.main.activity_settings.*
+import com.bumptech.glide.Glide
 
 class SettingsActivity : AppCompatActivity() {
+    lateinit var pickImages: ActivityResultLauncher<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-
-        saveSettings.setOnClickListener {
-            val userName: String = setUserName.text.toString().trim()
-            val status: String = setUserStatus.text.toString().trim()
-            if(userName.isEmpty() || status.isEmpty()){
-                App.showToast(this, R.string.writeYourNameStatus )
-            } else {
-                SaveNewUserData().updateUserNameStatus(userName, status, this)
-            }
+        pickImages = registerForActivityResult(ActivityResultContracts.GetContent()){ uri: Uri? ->
+            if(uri != null){
+              SaveNewUserData().saveUserImage(uri){ imageUrl ->
+                  if(imageUrl != "Error") Glide.with(this).load(imageUrl).into(profileImage)
+                  else App.showToast(this, R.string.error)
+              }
+            } else App.showToast(this, R.string.error)
         }
 
         SaveNewUserData().getUserInformationProfile(this){ user ->
             setUserName.setText(user.name)
             setUserStatus.setText(user.status)
-            if(user.image.isNotEmpty()){
-
-            }
+            if(user.image.isNotEmpty()) Glide.with(this).load(user.image).into(profileImage)
         }
+
+        saveSettings.setOnClickListener {
+            val userName: String = setUserName.text.toString().trim()
+            val status: String = setUserStatus.text.toString().trim()
+            if(userName.isEmpty() || status.isEmpty()) App.showToast(this, R.string.writeYourNameStatus )
+            else SaveNewUserData().updateUserNameStatus(userName, status, this)
+        }
+
+        profileImage.setOnClickListener { pickImages.launch("image/*"); }
+
     }
 
 

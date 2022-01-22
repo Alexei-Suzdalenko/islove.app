@@ -1,12 +1,15 @@
 package islove.app.assets.api
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import islove.app.MainActivity
 import islove.app.R
 import islove.app.SettingsActivity
@@ -15,20 +18,21 @@ import islove.app.assets.classes.User
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SaveNewUserData {
-    val rootRef = FirebaseDatabase.getInstance().reference
+    val id = FirebaseAuth.getInstance().currentUser!!.uid
+    val rootRef = FirebaseDatabase.getInstance().reference.child("users").child(id)
+    val storage = FirebaseStorage.getInstance().reference.child("profile_image").child("$id.jpg")
 
-    fun saveNewUser(email: String, password: String){
+    fun saveNewUser(email: String, password: String, phone: String){
         val id = FirebaseAuth.getInstance().currentUser!!.uid.toString()
         val profile = HashMap<String, Any>()
              profile["id"] = id
              profile["email"] = email
              profile["password"] = password
-        rootRef.child("users").child(id).setValue(profile)
+             profile["phone"] = phone
+        rootRef.setValue(profile)
     }
 
     fun updateUserNameStatus(name: String, status: String, c: Context){
-        val id = FirebaseAuth.getInstance().currentUser!!.uid
-        val rootRef = FirebaseDatabase.getInstance().reference.child("users").child(id)
         val profile = HashMap<String, Any>()
               profile["id"] = id
               profile["name"] = name
@@ -46,8 +50,7 @@ class SaveNewUserData {
     }
 
     fun getUserInformationProfile(settingsActivity: SettingsActivity?, onComplete: (user: User) -> Unit){
-
-        FirebaseDatabase.getInstance().reference.child("users").child(FirebaseAuth.getInstance().currentUser!!.uid).addListenerForSingleValueEvent(object: ValueEventListener {
+        FirebaseDatabase.getInstance().reference.child("users").child(id).addListenerForSingleValueEvent(object: ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {}
                 override fun onDataChange(data: DataSnapshot) {
                     if(data.exists() && data.hasChild("name")) {
@@ -57,16 +60,23 @@ class SaveNewUserData {
                         if (data.hasChild("image")) { image = data.child("image").value.toString(); }
                         val user = User("", userName, "", "", userStatus, image)
                         onComplete(user)
-                    } else {
-                        if(settingsActivity != null){
-                            App.showToast(settingsActivity, R.string.setUpdateProfileInformation)
-                        }
-                    }
+                    } else if(settingsActivity != null){ App.showToast(settingsActivity, R.string.setUpdateProfileInformation); }
                 }
         })
     }
 
-
+    fun saveUserImage(uri: Uri, onComplete: (result : String) -> Unit){
+        storage.putFile(uri).addOnCompleteListener { task ->
+            if(task.isSuccessful) {
+                storage.downloadUrl.addOnCompleteListener { it ->
+                    val profile = HashMap<String, Any>()
+                    profile["image"] = it.result.toString()
+                    rootRef.updateChildren(profile)
+                    onComplete( it.result.toString() )
+                }
+            } else onComplete("Error")
+        }
+    }
 
 
 

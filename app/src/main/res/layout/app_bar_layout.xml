@@ -2,8 +2,8 @@
 <androidx.appcompat.widget.Toolbar
     android:id="@+id/toolbarGroupup"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/colorPrimaryDark"
-    app:titleTextColor="@color/white"
+    android:background="@color/white"
+    app:titleTextColor="@color/grey"
     app:popupTheme="@style/Theme.IsLove.PopupOverlay"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"

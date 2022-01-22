@@ -9,7 +9,6 @@ import com.google.firebase.auth.FirebaseUser
 import islove.app.assets.api.LoginInApp
 import islove.app.assets.classes.App
 import kotlinx.android.synthetic.main.login_activity.*
-
 class LoginActivity : AppCompatActivity() {
     private var currentUser: FirebaseUser? = null
     lateinit var  loadingBar: ProgressDialog
@@ -33,21 +32,13 @@ class LoginActivity : AppCompatActivity() {
                 LoginInApp(this).loginIn(email, password, loadingBar)
             }
         }
-    }
-
-    private fun InitializeFields(){
-        buttonLogin
-        phoneLogin
-        emailLogin
-        passwordLogin
-        forgetPasswordLogin
-        orLoginUsingYour
+        phoneLogin.setOnClickListener { startActivity(Intent(this, PhoneLoginActivity::class.java)) }
     }
 
     override fun onStart() {
         super.onStart()
         currentUser = FirebaseAuth.getInstance().currentUser
-        if(currentUser != null){ SendUserToMainActivity(); Toast.makeText(this, "User login " + currentUser!!.uid, Toast.LENGTH_LONG).show(); }
+        if(FirebaseAuth.getInstance().currentUser != null){ SendUserToMainActivity(); Toast.makeText(this, "User login " + currentUser!!.uid, Toast.LENGTH_LONG).show(); }
     }
 
     fun SendUserToMainActivity(){
@@ -55,7 +46,6 @@ class LoginActivity : AppCompatActivity() {
              mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
              mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(mainIntent)
-        finish()
         finish()
     }
 }
