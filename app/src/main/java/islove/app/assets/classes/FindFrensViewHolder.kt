@@ -16,6 +16,7 @@ class FindFrensViewHolder(val itemViewA: View) : RecyclerView.ViewHolder(itemVie
         itemViewA.userProfileName?.text = user.name
         itemViewA.statusProfileName?.text = user.status
         if(user.image.length > 22) Glide.with(c).load(user.image).into(itemViewA.userProfileImage)
+
     }
 
 

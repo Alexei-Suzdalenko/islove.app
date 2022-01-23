@@ -18,12 +18,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IsLove">
         <activity
-            android:name=".FindFrendsActivity" android:parentActivityName=".MainActivity"
-            android:exported="true" ><!--
+            android:name=".ProfileVisitActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".FindFrendsActivity"
+            android:exported="true"
+            android:parentActivityName=".MainActivity">
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".PhoneLoginActivity"
@@ -74,6 +86,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -88,7 +101,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
