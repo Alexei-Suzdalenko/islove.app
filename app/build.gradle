@@ -55,6 +55,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.firebaseui:firebase-ui-database:4.1.0'          // 4.1.0 3.2.2
 
 
     implementation 'de.hdodenhof:circleimageview:2.2.0'

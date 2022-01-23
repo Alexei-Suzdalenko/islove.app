@@ -10,7 +10,6 @@ import android.widget.ListView
 import islove.app.GroupChatActivity
 import islove.app.R
 import islove.app.assets.api.CreateNewGroup
-import islove.app.assets.api.GroupsAdapter
 
 class GroupsFragment : Fragment() {
 

@@ -56,9 +56,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.findFrends -> { startActivity(Intent(this, FindFrendsActivity::class.java)); return true; }
-            R.id.createGroup -> { RequestNewGroup()
-               return  true
-            }
+            R.id.createGroup -> { RequestNewGroup(); return  true; }
             R.id.settingsOption -> { startActivity(Intent(this, SettingsActivity::class.java)); return true; }
             R.id.logoutOption -> { FirebaseAuth.getInstance().signOut(); startActivity(Intent(this, LoginActivity::class.java)); finish(); return true; }
             else -> super.onOptionsItemSelected(item)

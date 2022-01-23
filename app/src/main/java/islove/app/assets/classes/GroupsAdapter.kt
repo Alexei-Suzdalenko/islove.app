@@ -1,5 +1,4 @@
-package islove.app.assets.api
-import android.annotation.SuppressLint
+package islove.app.assets.classes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
