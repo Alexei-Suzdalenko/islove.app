@@ -1,6 +1,7 @@
 package islove.app
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -11,10 +12,11 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 import islove.app.assets.api.CreateNewAccount
 import islove.app.assets.api.CreateNewGroup
 import islove.app.assets.classes.App
-import islove.app.assets.classes.TabsPagerAdapter
+import islove.app.assets.adapter.TabsPagerAdapter
 import islove.app.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -35,6 +37,26 @@ class MainActivity : AppCompatActivity() {
         val viewPager = findViewById<ViewPager>(R.id.viewPager)
         viewPager.adapter = TabsPagerAdapter(this, supportFragmentManager)
         tabLayout.setupWithViewPager(viewPager)
+
+
+        Log.d("alexei", "start page--------------------------------------------------------")
+        val docRef = FirebaseFirestore.getInstance().collection("conversation").document("chats").collection("-Mu6tL1P16GVp64xN8IY")
+        docRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    Log.d("alexei", "DocumentSnapshot data: ${document.size().toString()}")
+                } else {
+                    Log.d("alexei", "No such document")
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.d("alexei", "get failed with ")
+            }
+
+
+
+
+
     }
 
     override fun onStart() {

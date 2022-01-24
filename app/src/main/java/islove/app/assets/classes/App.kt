@@ -16,10 +16,9 @@ class App: Application() {
   firebase this is love app => desarrollo.web.cantabria.penagos@gmail.com
   svoboda2...
 
-https://youtu.be/vlXZ287Sf9A?list=PLxefhmF0pcPmtdoud8f64EpgapkclCllj
-
-
-
+  https://youtu.be/4M5pWsrdTS4?list=PLxefhmF0pcPmtdoud8f64EpgapkclCllj
+https://youtu.be/So6sdTJExrU?list=PLxefhmF0pcPmtdoud8f64EpgapkclCllj
+https://youtu.be/h-P6hHdjmZk?list=PLxefhmF0pcPmtdoud8f64EpgapkclCllj
 */
 
 /*

@@ -1,13 +1,9 @@
-package islove.app.assets.classes
+package islove.app.assets.adapter
 import android.content.Context
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import islove.app.R
-import kotlinx.android.synthetic.main.activity_settings.*
+import islove.app.assets.classes.User
 import kotlinx.android.synthetic.main.users_display_layout.view.*
 
 class FindFrensViewHolder(val itemViewA: View) : RecyclerView.ViewHolder(itemViewA) {

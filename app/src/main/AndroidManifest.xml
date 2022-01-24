@@ -18,18 +18,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IsLove">
         <activity
-            android:name=".ProfileVisitActivity"
-            android:exported="true">
+            android:name=".ChatActivity"
+            android:exported="true"> <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter> -->
         </activity>
+        <activity
+            android:name=".ReceiverUserActivity"
+            android:exported="true" />
         <activity
             android:name=".FindFrendsActivity"
             android:exported="true"
             android:parentActivityName=".MainActivity">
+
             <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

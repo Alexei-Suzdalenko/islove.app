@@ -52,5 +52,6 @@
     <string name="conglarationsYou">Congratulations, you are logged in successfully</string>
     <string name="error">Error</string>
     <string name="imageUploaded">Image uploaded</string>
-    <string name="chat">Chat</string>
+    <string name="chat">Send message</string>
+    <string name="contacts">Contacts</string>
 </resources>

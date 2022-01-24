@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
-import islove.app.assets.classes.GroupsAdapter
+import islove.app.assets.adapter.GroupsAdapter
 import islove.app.assets.api.SaveGropsMessage
 import islove.app.assets.api.SaveNewUserData
 import islove.app.assets.classes.User
