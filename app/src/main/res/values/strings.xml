@@ -54,4 +54,5 @@
     <string name="imageUploaded">Image uploaded</string>
     <string name="chat">Send message</string>
     <string name="contacts">Contacts</string>
+    <string name="listUsers">List of users</string>
 </resources>

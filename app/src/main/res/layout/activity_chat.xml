@@ -7,6 +7,7 @@
     <include
         android:id="@+id/groupChatBarL"
         layout="@layout/app_bar_layout" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvChatConversation"
         android:layout_width="match_parent"

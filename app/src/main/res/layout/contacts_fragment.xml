@@ -3,14 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".assets.fragments.SettingsFragment">
+    >
 
-    <TextView
-        android:layout_width="match_parent"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvContactsRecyclerView"
         android:layout_height="match_parent"
-        android:text="@string/settings"
-        android:textSize="30sp"
-        android:gravity="center"
+        android:layout_width="match_parent"
+
         />
 
 </RelativeLayout>

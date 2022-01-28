@@ -2,23 +2,30 @@ package islove.app.assets.api
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
+
 import islove.app.MainActivity
 import islove.app.R
 import islove.app.SettingsActivity
+
 import islove.app.assets.classes.App
+
 import islove.app.assets.classes.User
-import kotlinx.android.synthetic.main.activity_settings.*
+
+
+
 
 class SaveNewUserData {
     val id = FirebaseAuth.getInstance().currentUser!!.uid
+    val refListUsers = FirebaseDatabase.getInstance().reference.child("users")
     val rootRef = FirebaseDatabase.getInstance().reference.child("users").child(id)
     val storage = FirebaseStorage.getInstance().reference.child("profile_image").child("$id.jpg")
 
@@ -76,6 +83,19 @@ class SaveNewUserData {
                 }
             } else onComplete("Error")
         }
+    }
+
+
+    fun getListUsers( onComplete: (result: User) -> Unit){
+        refListUsers.addListenerForSingleValueEvent(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+               for(snaps in snapshot.children){
+                   val user: User? = snaps.getValue<User?>()
+                   if( null != user) onComplete(User(user.id, user.name, "", "", user.status, user.image ))
+               }
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
     }
 
 

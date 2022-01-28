@@ -33,7 +33,8 @@ class SaveNewMessage() {
     }
 
     fun saveNewMessage(messageText: String, chatChannelId: String){
-        val chatMessage = ChatMessage(messageText)
+        val time = System.currentTimeMillis().toString()
+        val chatMessage = ChatMessage(time, messageText)
         firestore.collection(chatChannelId).document().set(chatMessage)
     }
 }

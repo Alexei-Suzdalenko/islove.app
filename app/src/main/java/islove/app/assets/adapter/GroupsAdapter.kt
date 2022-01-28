@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import islove.app.R
 
-class GroupsAdapter(val list: ArrayList<String>):  RecyclerView.Adapter<GroupsAdapter.ViewHolder>() {
+class GroupsAdapter(private val list: ArrayList<String>):  RecyclerView.Adapter<GroupsAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var textView: TextView = view.findViewById(R.id.teztViewGroupChat)
     }

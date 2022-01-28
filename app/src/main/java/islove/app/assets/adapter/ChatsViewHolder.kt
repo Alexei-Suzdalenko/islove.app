@@ -6,6 +6,7 @@ import islove.app.assets.classes.ChatMessage
 import kotlinx.android.synthetic.main.layout_chat_item.view.*
 
 class ChatsViewHolder (val itemViewA: View) : RecyclerView.ViewHolder(itemViewA) {
+    val list = ArrayList<String>()
 
     fun bind(chat: ChatMessage, c: Context) {
         itemViewA.chatTextViewItem?.text = chat.text

@@ -4,19 +4,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import islove.app.R
-import islove.app.assets.fragments.ChatFragment
+import islove.app.assets.fragments.ListUsersFragment
 import islove.app.assets.fragments.ContactsFragment
 import islove.app.assets.fragments.GroupsFragment
 
 class TabsPagerAdapter(c: Context, manager: FragmentManager): FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
-    val  fragments: ArrayList<Fragment>
-    val titles: ArrayList<String>
+    private val  fragments: ArrayList<Fragment> = ArrayList()
+    private val titles: ArrayList<String> = ArrayList()
 
     init {
-          fragments = ArrayList(); titles = ArrayList();
-          fragments.add(ChatFragment()); titles.add( c.resources.getString(R.string.chats))
+          fragments.add(ListUsersFragment()); titles.add( c.resources.getString(R.string.listUsers))
           fragments.add(GroupsFragment()); titles.add( c.resources.getString(R.string.groups))
-         fragments.add(ContactsFragment()); titles.add( c.resources.getString(R.string.contacts))
+          fragments.add(ContactsFragment()); titles.add( c.resources.getString(R.string.contacts))
     }
 
     override fun getCount(): Int { return fragments.size; }

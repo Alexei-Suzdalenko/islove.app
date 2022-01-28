@@ -36,7 +36,7 @@ class GroupChatActivity : AppCompatActivity() {
         }
 
         SaveGropsMessage(groupName).getMessages(){ message ->
-            groupsAdapter.addItem(message.message + "\n" + message.date)
+            groupsAdapter.addItem(message.name + "\n" + message.message)
             rvGroupChat.scrollToPosition(groupsAdapter.itemCount - 1)
         }
 
