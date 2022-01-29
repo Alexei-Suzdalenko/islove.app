@@ -2,6 +2,7 @@ package islove.app.assets.api
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
@@ -19,15 +20,12 @@ import islove.app.SettingsActivity
 import islove.app.assets.classes.App
 
 import islove.app.assets.classes.User
-
-
-
-
 class SaveNewUserData {
     val id = FirebaseAuth.getInstance().currentUser!!.uid
     val refListUsers = FirebaseDatabase.getInstance().reference.child("users")
     val rootRef = FirebaseDatabase.getInstance().reference.child("users").child(id)
     val storage = FirebaseStorage.getInstance().reference.child("profile_image").child("$id.jpg")
+    val refChatId = FirebaseDatabase.getInstance().reference.child("chats").child(id)
 
     fun saveNewUser(email: String, password: String, phone: String){
         val id = FirebaseAuth.getInstance().currentUser!!.uid.toString()
@@ -93,6 +91,32 @@ class SaveNewUserData {
                    val user: User? = snaps.getValue<User?>()
                    if( null != user) onComplete(User(user.id, user.name, "", "", user.status, user.image ))
                }
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
+
+    fun getListIdsContacts( onComplete: (result: User) -> Unit ){
+        val listChatsIdsContact = mutableListOf<String>()
+        refChatId.addListenerForSingleValueEvent(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {                            Log.d("listChatsId", "miId == " + id)
+                for(snaps in snapshot.children){
+                    val chatId = snaps.key.toString()
+                   if(id != chatId) { listChatsIdsContact.add(chatId); }
+                }
+                for(index in listChatsIdsContact.indices){
+                    refListUsers.child(listChatsIdsContact[index]).addListenerForSingleValueEvent(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                           val userId = snapshot.child("id").value.toString()
+                           val name  = snapshot.child("name").value.toString()
+                           val status = snapshot.child("status").value.toString()
+                           val image = snapshot.child("image").value.toString()
+                            onComplete(User(userId, name, "", "", status, image))
+                        }
+                        override fun onCancelled(error: DatabaseError) {}
+                    })
+                }
             }
             override fun onCancelled(error: DatabaseError) {}
         })

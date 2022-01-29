@@ -1,20 +1,11 @@
 package islove.app.assets.api
 import android.annotation.SuppressLint
-import android.content.Context
-import android.util.Log
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import islove.app.assets.classes.Message
 import islove.app.assets.classes.MessageGroup
 import islove.app.assets.classes.User
-import java.text.SimpleDateFormat
 import java.util.*
 
 class SaveGropsMessage(val groupName: String?) {
@@ -52,10 +43,13 @@ class SaveGropsMessage(val groupName: String?) {
             //      override fun onChildMoved(p0: DataSnapshot, p1: String?) {}
             //      override fun onCancelled(p0: DatabaseError) {}
             //  })
+            // return all messages, how to get only last message ?¿¿?¿?
             refFirestoreGroupChat.orderBy("time", Query.Direction.ASCENDING).addSnapshotListener { snapshot, e ->
-                if(snapshot!!.documents.size > 0)
-                    for(snaps in snapshot.documents) onComplete(MessageGroup(snaps.get("message").toString(), snaps.get("name").toString(), snaps.get("time") as Long))
-
+                if(snapshot!!.documents.size > 0) {
+                    for (snaps in snapshot.documents) {
+                        onComplete(MessageGroup(snaps.get("message").toString(), snaps.get("name").toString(), snaps.get("time") as Long))
+                    }
+                }
             }
         }
 

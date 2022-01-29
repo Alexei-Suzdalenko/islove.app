@@ -1,7 +1,7 @@
 package islove.app
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import islove.app.assets.adapter.GroupsAdapter
@@ -9,11 +9,15 @@ import islove.app.assets.api.SaveGropsMessage
 import islove.app.assets.api.SaveNewUserData
 import islove.app.assets.classes.User
 import kotlinx.android.synthetic.main.activity_group_chat.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+
 class GroupChatActivity : AppCompatActivity() {
     lateinit var user: User
     lateinit var groupsAdapter: GroupsAdapter
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group_chat)
@@ -35,8 +39,10 @@ class GroupChatActivity : AppCompatActivity() {
             }
         }
 
-        SaveGropsMessage(groupName).getMessages(){ message ->
-            groupsAdapter.addItem(message.name + "\n" + message.message)
+        SaveGropsMessage(groupName).getMessages{ message ->
+            val formatter = SimpleDateFormat("hh:mm:ss dd/MM/yyyy")
+            val  dateString = formatter.format( Date(message.time))
+            groupsAdapter.addItem(message.name + "  "+ dateString + " " + "\n" + message.message)
             rvGroupChat.scrollToPosition(groupsAdapter.itemCount - 1)
         }
 

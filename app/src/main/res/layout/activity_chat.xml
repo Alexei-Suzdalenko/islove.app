@@ -6,7 +6,7 @@
     tools:context=".GroupChatActivity">
     <include
         android:id="@+id/groupChatBarL"
-        layout="@layout/app_bar_layout" />
+        layout="@layout/custom_chat_bar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvChatConversation"
