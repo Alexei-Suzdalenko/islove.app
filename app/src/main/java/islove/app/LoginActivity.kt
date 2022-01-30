@@ -29,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
                 loadingBar.setMessage(resources.getString(R.string.pleaseWait))
                 loadingBar.setCanceledOnTouchOutside(true)
                 loadingBar.show()
+                /* cuando se ha logeado vamos a guardar el token del telefono en la base de datos */
                 LoginInApp(this).loginIn(email, password, loadingBar)
             }
         }
@@ -38,13 +39,11 @@ class LoginActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         currentUser = FirebaseAuth.getInstance().currentUser
-        if(FirebaseAuth.getInstance().currentUser != null){ SendUserToMainActivity(); Toast.makeText(this, "User login " + currentUser!!.uid, Toast.LENGTH_LONG).show(); }
+        if(FirebaseAuth.getInstance().currentUser != null){ SendUserToMainActivity();  }
     }
 
     fun SendUserToMainActivity(){
         val mainIntent = Intent(this, MainActivity::class.java)
-             mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
-             mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(mainIntent)
         finish()
     }

@@ -89,7 +89,7 @@ class SaveNewUserData {
             override fun onDataChange(snapshot: DataSnapshot) {
                for(snaps in snapshot.children){
                    val user: User? = snaps.getValue<User?>()
-                   if( null != user) onComplete(User(user.id, user.name, "", "", user.status, user.image ))
+                   if( null != user) onComplete(User(user.id, user.name, "", "", user.status, user.image,  "", user.token ))
                }
             }
             override fun onCancelled(error: DatabaseError) {}
@@ -112,7 +112,8 @@ class SaveNewUserData {
                            val name  = snapshot.child("name").value.toString()
                            val status = snapshot.child("status").value.toString()
                            val image = snapshot.child("image").value.toString()
-                            onComplete(User(userId, name, "", "", status, image))
+                            val token = snapshot.child("token").value.toString()
+                            onComplete(User(userId, name, "", "", status, image, token))
                         }
                         override fun onCancelled(error: DatabaseError) {}
                     })

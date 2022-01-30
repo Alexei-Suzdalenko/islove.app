@@ -23,6 +23,7 @@ class SaveGropsMessage(val groupName: String?) {
              messageInfoMap["name"] = user.name
              messageInfoMap["message"] = message
              messageInfoMap["time"] = System.currentTimeMillis()
+             messageInfoMap["userid"] = userId
         // no guardar en database realtime
         /// refGroupDatabase.child(refGroupDatabase.push().key.toString()).updateChildren(messageInfoMap)
 
@@ -47,7 +48,11 @@ class SaveGropsMessage(val groupName: String?) {
             refFirestoreGroupChat.orderBy("time", Query.Direction.ASCENDING).addSnapshotListener { snapshot, e ->
                 if(snapshot!!.documents.size > 0) {
                     for (snaps in snapshot.documents) {
-                        onComplete(MessageGroup(snaps.get("message").toString(), snaps.get("name").toString(), snaps.get("time") as Long))
+                        onComplete(
+                            MessageGroup(
+                                snaps.get("message").toString(), snaps.get("name").toString(), snaps.get("time") as Long, snaps.get("userid").toString()
+                            )
+                        )
                     }
                 }
             }

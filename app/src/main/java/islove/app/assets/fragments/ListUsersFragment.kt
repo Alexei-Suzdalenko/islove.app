@@ -27,7 +27,7 @@ class ListUsersFragment : Fragment() {
         rvListUsersRecycler.adapter = listUsersAdapter
 
         SaveNewUserData().getListUsers {
-            if( miId != it.id) listUsersAdapter.addItem(User(it.id, it.name, "", "", it.status, it.image))
+            if( miId != it.id) listUsersAdapter.addItem(it)
         }
 
         rvListUsersRecycler

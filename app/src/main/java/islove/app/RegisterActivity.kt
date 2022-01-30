@@ -45,7 +45,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val currentUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
-        if(currentUser != null){ SendUserToMainActivity(); Toast.makeText(this, "User login " + currentUser?.uid.toString(), Toast.LENGTH_LONG).show(); }
+        if(currentUser != null){ SendUserToMainActivity(); }
     }
     private fun SendUserToMainActivity(){ startActivity(Intent(this, MainActivity::class.java)); finish(); }
 }

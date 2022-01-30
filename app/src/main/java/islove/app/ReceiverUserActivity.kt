@@ -23,6 +23,7 @@ class ReceiverUserActivity : AppCompatActivity() {
                  intentChat.putExtra("sender", miId)
                  intentChat.putExtra("receiver", visitUserId)
                  intentChat.putExtra("name", intent.getStringExtra("visit_name").toString())
+                 intentChat.putExtra("token", intent.getStringExtra("token").toString())
                  if( intent.getStringExtra("visit_image").toString().length > 22 ){
                     intentChat.putExtra("image", intent.getStringExtra("visit_image").toString())
                  }

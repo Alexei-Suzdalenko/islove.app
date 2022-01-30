@@ -35,7 +35,8 @@ class ListUsersAdapter(private val list: ArrayList<User>, val c: Context):  Recy
         holder.textStatus.text = user.status
         holder.itemView.setOnClickListener {
             val visitIntent = Intent(c, ReceiverUserActivity::class.java); visitIntent.putExtra("visit_user_id", user.id)
-            visitIntent.putExtra("visit_name", user.name);visitIntent.putExtra("visit_status", user.status); visitIntent.putExtra("visit_image", user.image)
+            visitIntent.putExtra("visit_name", user.name); visitIntent.putExtra("visit_status", user.status); visitIntent.putExtra("visit_image", user.image)
+            visitIntent.putExtra("token", user.token)
             c.startActivity(visitIntent)
         }
     }

@@ -2,42 +2,48 @@ package islove.app
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.ViewGroup
-import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.firebase.firestore.*
+import android.widget.Toast
 import islove.app.assets.api.SaveConversationMessage
-import islove.app.assets.classes.ChatMessage
 import kotlinx.android.synthetic.main.activity_chat.*
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import islove.app.assets.adapter.ChatConversationAdapter
 
-import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_group_chat.*
-import kotlinx.android.synthetic.main.activity_profile_visit.*
+import islove.app.assets.adapter.TutorialMessageAdapter
+import islove.app.assets.notification.NotificationWork
+import islove.app.assets.notification.ServiceNotification
 import kotlinx.android.synthetic.main.custom_chat_bar.*
 
 class ChatConversartionActivity : AppCompatActivity() {
-    var sender = ""; var receiver = ""; var chatChannelId = ""
-    lateinit var adapter: ChatConversationAdapter
+    var sender = ""; var receiver = ""; var chatChannelId = ""; var token = "000 000 000 000"; var image = ""; var name = ""
+  //  lateinit var adapter: ChatConversationAdapter
+    lateinit var tutorialAdapter: TutorialMessageAdapter
     lateinit var rvChatConversationA: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-        textViewChat.text = intent.getStringExtra("name").toString()
-        if( intent.getStringExtra("image").toString().length > 22 ) Glide.with(this).load(intent.getStringExtra("image").toString()).into(customProfileImage)
+        name = intent.getStringExtra("name").toString()
+        textViewChat.text = name
+        if( intent.getStringExtra("image").toString().length > 22 ) {
+            image = intent.getStringExtra("image").toString()
+            Glide.with(this).load(intent.getStringExtra("image").toString()).into(customProfileImage)
+        }
 
         rvChatConversationA = findViewById(R.id.rvChatConversation)
-        // rvChatConversationA.setHasFixedSize(true)
         rvChatConversationA.layoutManager = LinearLayoutManager(this)
-        adapter = ChatConversationAdapter(ArrayList(), this)
-        rvChatConversationA.adapter = adapter
+        rvChatConversationA.setHasFixedSize(true)
+    //     adapter = ChatConversationAdapter(ArrayList(), this)
+    //     rvChatConversationA.adapter = adapter
+
+        tutorialAdapter = TutorialMessageAdapter(ArrayList(), this)
+        rvChatConversationA.adapter = tutorialAdapter
 
         sender = intent.getStringExtra("sender").toString()
         receiver =  intent.getStringExtra("receiver").toString()
+        token = intent.getStringExtra("token").toString()
+
         SaveConversationMessage().createOrGetCurrentChatChannel(sender, receiver){
                 chatId -> chatChannelId = chatId
                 getConversationMessages()
@@ -46,9 +52,11 @@ class ChatConversartionActivity : AppCompatActivity() {
         sentMessageChat.setOnClickListener {
             val messageText = inputChatMessage.text.toString().trim()
             if(messageText.isNotEmpty() && chatChannelId.isNotEmpty()) {
-                adapter.clearList()
+               // adapter.clearList()
                 SaveConversationMessage().saveNewMessage(messageText, chatChannelId)
                 inputChatMessage.setText("")
+                /* create notification  and send */
+                ServiceNotification().sentNotification(sender, receiver, token, messageText, image, name)
             }
         }
 
@@ -56,16 +64,17 @@ class ChatConversartionActivity : AppCompatActivity() {
 
     private fun getConversationMessages() {
         SaveConversationMessage().getMessagesFromConversation(chatChannelId){
-            adapter.addItem(it)
-            rvChatConversationA.scrollToPosition(adapter.itemCount - 1)
+      //      adapter.addItem(it)
+      //      rvChatConversationA.scrollToPosition(adapter.itemCount - 1)
+            tutorialAdapter.addNewItem(it)
+            // rvChatConversationA.scrollToPosition(tutorialAdapter.itemCount - 1)
+            /* scroll from tutorial chat */
+            rvChatConversationA.smoothScrollToPosition(tutorialAdapter.itemCount - 1)
         }
     }
 
 
-    override fun onStop() {
-        super.onStop()
 
-    }
 
 
 }

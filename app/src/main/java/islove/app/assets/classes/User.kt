@@ -7,5 +7,6 @@ data class User (
     var password: String = "",
     var status: String = "",
     var image: String = "",
-    var phone: String = ""
+    var phone: String = "",
+    var token: String = ""
 )

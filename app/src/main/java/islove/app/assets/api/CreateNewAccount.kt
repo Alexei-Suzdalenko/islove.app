@@ -10,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import islove.app.*
 import islove.app.assets.classes.App
+import islove.app.assets.notification.NotificationWork
 
 class CreateNewAccount(val c: RegisterActivity? = null) {
 
@@ -19,6 +20,7 @@ class CreateNewAccount(val c: RegisterActivity? = null) {
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { it ->
                 if(it.isSuccessful) {
                     SaveNewUserData().saveNewUser(email, password, "")
+                    NotificationWork().saveUserToken()
                     SendUserToMainActivity()
                     App.showToast(c!!,  R.string.accountCreatedSuccessfully)
                 } else {
@@ -30,8 +32,6 @@ class CreateNewAccount(val c: RegisterActivity? = null) {
 
     private fun SendUserToMainActivity(){
         val mainIntent = Intent(c, MainActivity::class.java)
-             mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
-             mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         c!!.startActivity(mainIntent)
         c.finish()
     }
@@ -44,8 +44,6 @@ class CreateNewAccount(val c: RegisterActivity? = null) {
         rootRef.child(id).addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if(dataSnapshot.child("name").exists()){
-
-                    Toast.makeText(mainActivity, "data ok", Toast.LENGTH_LONG).show()
                 } else{
                    mainActivity.startActivity(Intent(mainActivity, SettingsActivity::class.java))
                 }

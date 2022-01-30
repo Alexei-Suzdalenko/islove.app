@@ -6,6 +6,7 @@ import com.google.firebase.database.FirebaseDatabase
 import islove.app.LoginActivity
 import islove.app.R
 import islove.app.assets.classes.App
+import islove.app.assets.notification.NotificationWork
 
 class LoginInApp(val c: LoginActivity) {
 
@@ -14,6 +15,9 @@ class LoginInApp(val c: LoginActivity) {
         val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {  it->
             if(it.isSuccessful){
+                /* save user token */
+                NotificationWork().saveUserToken()
+
                 c.SendUserToMainActivity()
                 App.showToast(c, R.string.loggedInSuccessful)
             } else {
