@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
    //      }
    //  })
 
-
+        NotificationWork().saveUserToken()
 
     }
 

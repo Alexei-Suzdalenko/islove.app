@@ -57,6 +57,7 @@ class ChatConversartionActivity : AppCompatActivity() {
                 inputChatMessage.setText("")
                 /* create notification  and send */
                 ServiceNotification().sentNotification(sender, receiver, token, messageText, image, name)
+                Log.d("tokentoken", "token: " + token)
             }
         }
 
