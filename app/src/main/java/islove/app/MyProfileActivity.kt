@@ -8,8 +8,9 @@ import islove.app.assets.api.SaveNewUserData
 import islove.app.assets.classes.App
 import kotlinx.android.synthetic.main.activity_settings.*
 import com.bumptech.glide.Glide
+import islove.app.assets.api.SaveUserLocationFirestore
 
-class SettingsActivity : AppCompatActivity() {
+class MyProfileActivity : AppCompatActivity() {
     lateinit var pickImages: ActivityResultLauncher<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +39,7 @@ class SettingsActivity : AppCompatActivity() {
 
         profileImage.setOnClickListener { pickImages.launch("image/*"); }
 
+        SaveUserLocationFirestore().saveUserLocation(this)
     }
 
 

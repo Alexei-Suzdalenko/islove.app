@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Is Love</string>
+    <string name="app_name">IS LOVE</string>
     <string name="userName">User name</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="chats">Chats</string>
@@ -24,7 +24,7 @@
     <string name="loggedInSuccessful">Logged in successful</string>
     <string name="loginIn">Try to login in</string>
     <string name="findFrends">Find frends</string>
-    <string name="settingsOption">Settings</string>
+    <string name="settingsOption">Profile</string>
     <string name="logoutOption">Logout</string>
     <string name="userStatus">User status</string>
     <string name="save">Save</string>
@@ -55,4 +55,8 @@
     <string name="chat">Send message</string>
     <string name="contacts">Contacts</string>
     <string name="listUsers">List of users</string>
+    <string name="thisAppNeedLocation">This app need location</string>
+    <string name="termAndCond">Agree terms and conditions</string>
+    <string name="start">Start</string>
+    <string name="author">Developer Alexei Suzdalenko</string>
 </resources>

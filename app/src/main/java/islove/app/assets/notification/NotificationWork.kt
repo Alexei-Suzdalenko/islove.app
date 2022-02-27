@@ -4,19 +4,14 @@ import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 
 class NotificationWork {
     val id = FirebaseAuth.getInstance().currentUser!!.uid.toString()
-    val rootRef = FirebaseDatabase.getInstance().reference.child("users").child(id)
-    val notRef = FirebaseDatabase.getInstance().reference.child("notifications")
+    val rootRef = FirebaseFirestore.getInstance().collection("user").document(id)
 
-    fun saveNotification(receiver: String){
-        val chatNotification = HashMap<String, Any>()
-             chatNotification["from"] = id
-             chatNotification["type"] = "request"
-        notRef.child(receiver).push().setValue(chatNotification)
-    }
 
     fun saveUserToken(){
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
@@ -26,7 +21,7 @@ class NotificationWork {
 
                     val tokenUpdate = HashMap<String, Any>()
                           tokenUpdate["token"] = token
-                    rootRef.updateChildren(tokenUpdate)
+                    rootRef.update(tokenUpdate)
                 }
             }
         }

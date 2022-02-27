@@ -1,6 +1,5 @@
 package islove.app.assets.api
 import android.app.ProgressDialog
-import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
@@ -13,7 +12,6 @@ import islove.app.assets.classes.App
 import islove.app.assets.notification.NotificationWork
 
 class CreateNewAccount(val c: RegisterActivity? = null) {
-
 
         fun createNewAccount(email: String, password: String, loadingBar: ProgressDialog){
             val mAuth = FirebaseAuth.getInstance()
@@ -45,7 +43,7 @@ class CreateNewAccount(val c: RegisterActivity? = null) {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if(dataSnapshot.child("name").exists()){
                 } else{
-                   mainActivity.startActivity(Intent(mainActivity, SettingsActivity::class.java))
+                   mainActivity.startActivity(Intent(mainActivity, MyProfileActivity::class.java))
                 }
 
             }
