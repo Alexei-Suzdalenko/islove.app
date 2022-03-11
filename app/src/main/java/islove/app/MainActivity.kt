@@ -21,41 +21,29 @@ import islove.app.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var currentUser: FirebaseUser? = null
-    var apiService: APIService? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbarMain)
-
         val toolbar: Toolbar = findViewById(R.id.toolbarMain)
         setSupportActionBar(toolbar)
         supportActionBar?.title = ""
-
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         val viewPager = findViewById<ViewPager>(R.id.viewPager)
         viewPager.adapter = TabsPagerAdapter(this, supportFragmentManager)
         tabLayout.setupWithViewPager(viewPager)
-
-        NotificationWork().saveUserToken()
     }
 
     override fun onStart() {
         super.onStart()
         currentUser = FirebaseAuth.getInstance().currentUser
-        if(currentUser == null){
-            startActivity(Intent(this, LoginActivity::class.java)); finish()
-        } else {
-            CreateNewAccount().virifyUserInstance(this)
-        }
+        if(currentUser == null) { startActivity(Intent(this, LoginActivity::class.java)); finish()
+        } else CreateNewAccount().virifyUserInstance(this)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu); return true
-    }
-
+    override fun onCreateOptionsMenu(menu: Menu): Boolean { menuInflater.inflate(R.menu.menu_main, menu); return true }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             // R.id.findFrends -> { startActivity(Intent(this, FindFrendsActivity::class.java)); return true; }

@@ -58,6 +58,9 @@ class SaveUserLocationFirestore {
 
         App.editor.apply()
         SaveNewUserData().intentGetUserDataIfExsistEnDataBase {  user ->
+            dataUser["id"]      = FirebaseAuth.getInstance().currentUser!!.uid;                 App.editor.putString("id", FirebaseAuth.getInstance().currentUser!!.uid).apply()
+            dataUser["time"]  = System.currentTimeMillis().toString()
+            dataUser["email"] = App.sharedPreferences.getString("email", "").toString()
             if(user != null) refUser.update(dataUser)
             else refUser.set(dataUser)
         }

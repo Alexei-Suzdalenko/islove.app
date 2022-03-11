@@ -1,6 +1,7 @@
 package islove.app
 import android.app.ProgressDialog
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -10,7 +11,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import islove.app.assets.api.CreateNewAccount
 import islove.app.assets.classes.App
+import kotlinx.android.synthetic.main.activity_location_permision.*
 import kotlinx.android.synthetic.main.register_activity.*
+import kotlinx.android.synthetic.main.register_activity.termAndCond
 
 class RegisterActivity : AppCompatActivity() {
     lateinit var mAuth: FirebaseAuth
@@ -25,6 +28,9 @@ class RegisterActivity : AppCompatActivity() {
         loadingBar = ProgressDialog(this)
         alredyHaveAccoutRegister.setOnClickListener { startActivity(Intent(this, LoginActivity::class.java)); finish(); }
         buttonCreateAccount.setOnClickListener { CreateNewAccount(); }
+        termAndCond.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://santa-maria-de-cayon.github.io/contact.messager/terms-and-conditions.html")))
+        }
     }
 
     private fun CreateNewAccount(){

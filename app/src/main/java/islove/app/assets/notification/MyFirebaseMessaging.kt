@@ -1,4 +1,5 @@
 package islove.app.assets.notification
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -20,7 +21,7 @@ import java.lang.Math.random
 
 class MyFirebaseMessaging: FirebaseMessagingService() {
     override fun onNewToken(token: String) {
-        NotificationWork().saveUserToken()
+       if (FirebaseAuth.getInstance().currentUser != null) NotificationWork().saveUserToken()
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -38,6 +39,7 @@ class MyFirebaseMessaging: FirebaseMessagingService() {
         
     }
 
+    @SuppressLint("UnspecifiedImmutableFlag")
     private fun sendNotificatioin(remoteMessage: RemoteMessage) {
         val intent = Intent(applicationContext, ChatConversartionActivity::class.java)
         intent.putExtra("sender",  remoteMessage.data["sender"].toString() )
@@ -60,6 +62,7 @@ class MyFirebaseMessaging: FirebaseMessagingService() {
     }
 
 
+    @SuppressLint("UnspecifiedImmutableFlag")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun sendOreoNotificatioin(remoteMessage: RemoteMessage) {
         val intent = Intent(applicationContext, ChatConversartionActivity::class.java)

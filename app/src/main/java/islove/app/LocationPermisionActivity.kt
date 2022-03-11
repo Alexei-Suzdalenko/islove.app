@@ -19,29 +19,21 @@ class LocationPermisionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_location_permision)
         supportActionBar?.hide()
 
-        titleApp.setOnClickListener {
-            startActivity(Intent(this, LocationPermisionActivity::class.java)); finish()
-        }
-        termAndCond.setOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://santa-maria-de-cayon.github.io/contact.messager/terms-and-conditions.html")))
-        }
-        startAppChat.setOnClickListener {
-            checkLocationPermission()
-        }
-        authorApp.setOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=alexei+suzdalenko+developer")))
-        }
+        titleApp.setOnClickListener { startActivity(Intent(this, LocationPermisionActivity::class.java)); finish() }
+        termAndCond.setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://santa-maria-de-cayon.github.io/contact.messager/terms-and-conditions.html"))) }
+        startAppChat.setOnClickListener { checkLocationPermission() }
+        authorApp.setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=alexei+suzdalenko+developer"))) }
         checkLocationPermission()
     }
 
     fun goToLogin(){
-        startActivity(Intent(this, RegisterActivity::class.java));finish()
+        // startActivity(Intent(this, RegisterActivity::class.java)); finish()
     }
 
     override fun onResume() {
         super.onResume()
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            goToLogin()
+            startActivity(Intent(this, RegisterActivity::class.java)); finish()
         }
     }
 
@@ -71,7 +63,8 @@ class LocationPermisionActivity : AppCompatActivity() {
             MY_PERMISSIONS_REQUEST_LOCATION -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        goToLogin()
+                        // goToLogin()
+                        startActivity(Intent(this, RegisterActivity::class.java)); finish()
                     }
                 } else {
                     Toast.makeText(this, "Enable location !", Toast.LENGTH_LONG).show()

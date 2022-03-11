@@ -2,6 +2,7 @@ package islove.app.assets.api
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -19,9 +20,11 @@ import islove.app.assets.classes.App
 
 import islove.app.assets.classes.User
 class SaveNewUserData {
-    val id = FirebaseAuth.getInstance().currentUser!!.uid
-    val rootRef = FirebaseDatabase.getInstance().reference.child("users").child(id)
-    val storage = FirebaseStorage.getInstance().reference.child("profile_image").child("$id.jpg")
+    val id           = FirebaseAuth.getInstance().currentUser!!.uid
+    // val rootRef   = FirebaseDatabase.getInstance().reference.child("users").child(id)
+    val rootRef   = FirebaseFirestore.getInstance().collection("user").document(id)
+    val email      = App.sharedPreferences.getString("email", "a").toString()
+    val storage   = FirebaseStorage.getInstance().reference.child("$email.jpg")
     val refChatId = FirebaseDatabase.getInstance().reference.child("chats").child(id)
 
     val refUserInfo = FirebaseFirestore.getInstance().collection("user").document(id)
@@ -49,46 +52,40 @@ class SaveNewUserData {
         }
     }
 
-    fun updateUserNameStatus(name: String, status: String, c: Context){
+    fun updateUserNameStatus(userName: String, status: String, age: String, gender: String, search: String,  c: Context){
         val profile = HashMap<String, Any>()
               profile["id"] = id
-              profile["name"] = name
-              profile["status"] = status
-        rootRef
-            .updateChildren( profile )
-            .addOnCompleteListener { it ->
-                if(it.isSuccessful()){
-                    App.showToast(c, R.string.profileUpdatedSuccessfuly)
-                    c.startActivity(Intent(c, MainActivity::class.java))
-                } else {
-                    Toast.makeText(c, "Error:" +  it.exception.toString(), Toast.LENGTH_LONG).show()
-                }
+              profile["name"] = userName;  App.editor.putString("name", userName).apply()
+              profile["status"] = status;      App.editor.putString("status", status).apply()
+              profile["age"] = age;              App.editor.putString("age", age).apply()
+              profile["gender"] = gender;    App.editor.putString("gender", gender).apply()
+              profile["search"] = search;    App.editor.putString("search", search).apply()
+        rootRef.update(profile).addOnCompleteListener {
+            if(it.isSuccessful) c.startActivity(Intent(c, MainActivity::class.java))
+            else Toast.makeText(c, "Error:" +  it.exception.toString(), Toast.LENGTH_LONG).show()
         }
     }
 
     fun getUserInformationProfile(settingsActivity: MyProfileActivity?, onComplete: (user: User) -> Unit){
-        FirebaseDatabase.getInstance().reference.child("users").child(id).addListenerForSingleValueEvent(object: ValueEventListener {
-                override fun onCancelled(p0: DatabaseError) {}
-                override fun onDataChange(data: DataSnapshot) {
-                    if(data.exists() && data.hasChild("name")) {
-                        val userName = data.child("name").value.toString()
-                        val userStatus = data.child("status").value.toString()
-                        var image = ""
-                        if (data.hasChild("image")) { image = data.child("image").value.toString(); }
-                        val user = User("", userName, "", "", userStatus, image)
-                        onComplete(user)
-                    } else if(settingsActivity != null){ App.showToast(settingsActivity, R.string.setUpdateProfileInformation); }
-                }
-        })
+        FirebaseFirestore.getInstance().collection("user").document(id).get().addOnSuccessListener  { document ->
+           if(document != null){
+               val user = User(document["id"].toString(), document["age"].toString(), document["country"].toString(), document["image"].toString(), document["locality"].toString(), document["name"].toString(), document["online"].toString(), document["postal"].toString(), document["status"].toString(), document["token"].toString(), "")
+               onComplete(user)
+           } else if(settingsActivity != null){ App.showToast(settingsActivity, R.string.setUpdateProfileInformation); }
+        }
     }
 
     fun saveUserImage(uri: Uri, onComplete: (result : String) -> Unit){
+        var urlString = ""
         storage.putFile(uri).addOnCompleteListener { task ->
             if(task.isSuccessful) {
                 storage.downloadUrl.addOnCompleteListener { it ->
+                    urlString = it.result.toString()
                     val profile = HashMap<String, Any>()
-                    profile["image"] = it.result.toString()
-                    rootRef.updateChildren(profile)
+                          profile["image"] = urlString
+                    FirebaseFirestore.getInstance().collection("user").document(FirebaseAuth.getInstance().currentUser!!.uid).update(profile).addOnCompleteListener {
+                        if(it.isSuccessful) App.editor.putString("image", urlString).apply()
+                    }
                     onComplete( it.result.toString() )
                 }
             } else onComplete("Error")

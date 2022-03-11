@@ -22,7 +22,17 @@ class CreateNewAccount(val c: RegisterActivity? = null) {
                     SendUserToMainActivity()
                     App.showToast(c!!,  R.string.accountCreatedSuccessfully)
                 } else {
-                    Toast.makeText(c, "Error: " + it.exception.toString(),  Toast.LENGTH_LONG).show()
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {  it->
+                        if(it.isSuccessful){
+                            /* save user token */
+                                App.editor.putString("email", email).apply()
+                            NotificationWork().saveUserToken()
+                            SendUserToMainActivity()
+                        } else {
+                            Toast.makeText(c, "Error: " + it.exception.toString(), Toast.LENGTH_LONG).show()
+                        }
+                        loadingBar.dismiss()
+                    }
                 }
                 loadingBar.dismiss()
             }
@@ -36,18 +46,10 @@ class CreateNewAccount(val c: RegisterActivity? = null) {
 
     /*  hay que cambiar esto por unico request no mantener conneccion durante todo el tiempo */
     fun virifyUserInstance(mainActivity: MainActivity){
-        val id = FirebaseAuth.getInstance().currentUser?.uid.toString()
-        val rootRef = FirebaseDatabase.getInstance().reference.child("users")
-
-        rootRef.child(id).addListenerForSingleValueEvent(object: ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if(dataSnapshot.child("name").exists()){
-                } else{
-                   mainActivity.startActivity(Intent(mainActivity, MyProfileActivity::class.java))
-                }
-
-            }
-            override fun onCancelled(p0: DatabaseError) {}
-        })
+        NotificationWork().saveUserToken()
+        if(App.sharedPreferences.getString("image", "").toString().length < 11 || App.sharedPreferences.getString("name", "").toString().length < 3){
+            mainActivity.startActivity(Intent(mainActivity, MyProfileActivity::class.java))
+        }
     }
+
 }

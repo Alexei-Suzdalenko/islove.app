@@ -20,6 +20,7 @@ class NotificationWork {
                     val token: String = task.result!!.toString()
 
                     val tokenUpdate = HashMap<String, Any>()
+                          tokenUpdate["time"] = System.currentTimeMillis().toString()
                           tokenUpdate["token"] = token
                     rootRef.update(tokenUpdate)
                 }

@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_width="match_parent" >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".MyProfileActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileImage"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:src="@drawable/profile_image"
         android:layout_alignParentTop="true"
-        app:civ_border_width="5dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp"
+        android:src="@drawable/profile_image"
         app:civ_border_color="@color/green"
-        />
+        app:civ_border_width="2dp" />
 
     <EditText
         android:id="@+id/setUserName"
@@ -31,7 +33,9 @@
         android:textStyle="bold"
         android:textColor="@color/colorPrimaryDark"
         android:background="@drawable/inputs"
-        android:layout_margin="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginTop="22dp"
         android:padding="6dp"
         tools:ignore="LabelFor" />
 
@@ -40,22 +44,130 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/setUserName"
-        android:inputType="textMultiLine"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="22dp"
         android:autofillHints="no"
-        android:hint="@string/userStatus"
-        android:drawableStart="@drawable/edit_status"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimaryDark"
         android:background="@drawable/inputs"
-        android:layout_margin="22dp"
+        android:drawableStart="@drawable/edit_status"
+        android:hint="@string/userStatus"
+        android:inputType="textMultiLine"
         android:padding="6dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
         tools:ignore="LabelFor" />
+
+    <TextView
+        android:id="@+id/textViewPlace"
+        android:layout_below="@+id/setUserStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textStyle="bold"
+        android:textSize="19sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="22dp"
+        />
+
+    <EditText
+        android:id="@+id/setUserAge"
+        android:layout_below="@+id/textViewPlace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="22dp"
+        android:autofillHints="no"
+        android:background="@drawable/inputs"
+        android:hint="@string/userAge"
+        android:inputType="number"
+        android:padding="6dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        tools:ignore="LabelFor" />
+
+    <LinearLayout
+        android:id="@+id/linearlayoutMySex"
+        android:layout_below="@+id/setUserAge"
+        android:background="@drawable/inputs"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="22dp"
+        android:padding="11dp"
+        >
+        <TextView
+            android:text="@string/myGender"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp" />
+        <RadioGroup
+            android:id="@+id/radio_group1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/man"
+                android:id="@+id/radioIamMan"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/woman"
+                android:id="@+id/radioIamWoman"
+                />
+        </RadioGroup>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearlayoutMySearch"
+        android:layout_below="@+id/linearlayoutMySex"
+        android:background="@drawable/inputs"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="22dp"
+        android:padding="11dp"
+        >
+        <TextView
+            android:text="@string/meSearch"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp" />
+        <RadioGroup
+            android:id="@+id/radio_group2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp">
+            <RadioButton
+                android:id="@+id/radioSearchMan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/man"
+                />
+            <RadioButton
+                android:id="@+id/radioSearchWoman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/woman"
+                />
+        </RadioGroup>
+    </LinearLayout>
 
     <Button
         android:id="@+id/saveSettings"
+        android:layout_below="@+id/linearlayoutMySearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/setUserStatus"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:background="@color/green"
@@ -66,3 +178,4 @@
         android:textSize="21dp"
          />
 </RelativeLayout>
+</ScrollView>

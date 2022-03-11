@@ -16,8 +16,8 @@ class LoginInApp(val c: LoginActivity) {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {  it->
             if(it.isSuccessful){
                 /* save user token */
+                App.editor.putString("email", email).apply()
                 NotificationWork().saveUserToken()
-
                 c.SendUserToMainActivity()
                 App.showToast(c, R.string.loggedInSuccessful)
             } else {

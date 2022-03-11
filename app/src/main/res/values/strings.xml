@@ -59,4 +59,9 @@
     <string name="termAndCond">Agree terms and conditions</string>
     <string name="start">Start</string>
     <string name="author">Developer Alexei Suzdalenko</string>
+    <string name="userAge">User age</string>
+    <string name="myGender">My gender</string>
+    <string name="man">Man</string>
+    <string name="woman">Woman</string>
+    <string name="meSearch">I am looking for</string>
 </resources>
