@@ -14,8 +14,8 @@ import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 import islove.app.R
 import islove.app.ReceiverUserActivity
+import islove.app.assets.classes.App
 import islove.app.assets.classes.User
-
 class ListUsersAdapter(private val list: ArrayList<User>, val c: Context):  RecyclerView.Adapter<ListUsersAdapter.InnerClassDescription>() {
     class InnerClassDescription(view: View) : RecyclerView.ViewHolder(view) {
         val image = view.findViewById<CircleImageView>(R.id.imageListUser)
@@ -34,10 +34,8 @@ class ListUsersAdapter(private val list: ArrayList<User>, val c: Context):  Recy
         holder.textName.text = user.name
         holder.textStatus.text = user.status
         holder.itemView.setOnClickListener {
-            val visitIntent = Intent(c, ReceiverUserActivity::class.java); visitIntent.putExtra("visit_user_id", user.id)
-            visitIntent.putExtra("visit_name", user.name); visitIntent.putExtra("visit_status", user.status); visitIntent.putExtra("visit_image", user.image)
-            visitIntent.putExtra("token", user.token)
-            c.startActivity(visitIntent)
+            App.otherUserData = user
+            c.startActivity(Intent(c, ReceiverUserActivity::class.java))
         }
     }
 

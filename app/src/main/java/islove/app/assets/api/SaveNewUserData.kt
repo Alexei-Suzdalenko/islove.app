@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.storage.FirebaseStorage
 
 import islove.app.MainActivity
@@ -17,16 +18,14 @@ import islove.app.R
 import islove.app.MyProfileActivity
 
 import islove.app.assets.classes.App
+import islove.app.assets.classes.Conversation
 
 import islove.app.assets.classes.User
 class SaveNewUserData {
     val id           = FirebaseAuth.getInstance().currentUser!!.uid
-    // val rootRef   = FirebaseDatabase.getInstance().reference.child("users").child(id)
     val rootRef   = FirebaseFirestore.getInstance().collection("user").document(id)
     val email      = App.sharedPreferences.getString("email", "a").toString()
-    val storage   = FirebaseStorage.getInstance().reference.child("$email.jpg")
-    val refChatId = FirebaseDatabase.getInstance().reference.child("chats").child(id)
-
+    val storage   = FirebaseStorage.getInstance().reference.child("profile_image").child("$email.jpg")
     val refUserInfo = FirebaseFirestore.getInstance().collection("user").document(id)
     val refListUsers = FirebaseFirestore.getInstance().collection("user")
 
@@ -93,9 +92,17 @@ class SaveNewUserData {
     }
 
     fun getListUsers( onComplete: (result: User) -> Unit){
-        refListUsers.get().addOnSuccessListener  { documents ->
+        val country = App.sharedPreferences.getString("country", "es").toString()
+        val gender  = App.sharedPreferences.getString("gender", "man").toString() // yo soy hombre, busco mujer => busco gender=mujer, search=
+        val search  = App.sharedPreferences.getString("search", "man").toString()
+        Log.d("userDataS", id+ ", gender="+gender+ ", " + "search="+search)
+        refListUsers
+            .whereEqualTo("country", country)
+            .whereEqualTo("gender", search)
+            .whereEqualTo("search", gender)
+            .get().addOnSuccessListener  { documents ->
             for (it in documents) {
-              val  user = User("", it["age"].toString(), it["country"].toString(), it["image"].toString(), it["locality"].toString(), it["name"].toString(), it["online"].toString(), it["postal"].toString(), it["status"].toString(), "", it["backImage"].toString() );
+              val  user = User(it["id"].toString(), it["age"].toString(), it["country"].toString(), it["image"].toString(), it["locality"].toString(), it["name"].toString(), it["online"].toString(), it["postal"].toString(), it["status"].toString(), it["token"].toString(), it["backImage"].toString());
                 onComplete(user)
             }
         }
@@ -103,29 +110,16 @@ class SaveNewUserData {
 
 
     fun getListIdsContacts( onComplete: (result: User) -> Unit ){
-        val listChatsIdsContact = mutableListOf<String>()
-      // refChatId.addListenerForSingleValueEvent(object :ValueEventListener{
-      //     override fun onDataChange(snapshot: DataSnapshot) {                            Log.d("listChatsId", "miId == " + id)
-      //         for(snaps in snapshot.children){
-      //             val chatId = snaps.key.toString()
-      //            if(id != chatId) { listChatsIdsContact.add(chatId); }
-      //         }
-      //         for(index in listChatsIdsContact.indices){
-      //             refListUsers.child(listChatsIdsContact[index]).addListenerForSingleValueEvent(object : ValueEventListener{
-      //                 override fun onDataChange(snapshot: DataSnapshot) {
-      //                    val userId = snapshot.child("id").value.toString()
-      //                    val name  = snapshot.child("name").value.toString()
-      //                    val status = snapshot.child("status").value.toString()
-      //                    val image = snapshot.child("image").value.toString()
-      //                     val token = snapshot.child("token").value.toString()
-      //                     onComplete(User(userId, name, "", "", status, image, token))
-      //                 }
-      //                 override fun onCancelled(error: DatabaseError) {}
-      //             })
-      //         }
-      //     }
-      //     override fun onCancelled(error: DatabaseError) {}
-      // })
+        val listChatsIdsContact = mutableListOf <String>()
+        FirebaseFirestore.getInstance().collection("enganchedChat").document(id).collection("chat").get().addOnSuccessListener { documents ->
+            for(doc in documents.documents) { listChatsIdsContact.add(doc.id) }
+            for(index in listChatsIdsContact.indices) {
+                 refListUsers.document(listChatsIdsContact[index]).get().addOnSuccessListener { userF ->
+                     val user = userF.toObject<User>()
+                     if (user != null) { onComplete(user) }
+                 }
+             }
+        }
     }
 
 

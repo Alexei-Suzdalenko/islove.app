@@ -1,4 +1,5 @@
 package islove.app
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,40 +12,36 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import islove.app.assets.adapter.TutorialMessageAdapter
+import islove.app.assets.classes.App
+import islove.app.assets.classes.App.Companion.otherUserData
 import islove.app.assets.notification.NotificationWork
 import islove.app.assets.notification.ServiceNotification
 import kotlinx.android.synthetic.main.custom_chat_bar.*
 
-class ChatConversartionActivity : AppCompatActivity() {
-    var sender = ""; var receiver = ""; var chatChannelId = ""; var token = "000 000 000 000"; var image = ""; var name = ""
-  //  lateinit var adapter: ChatConversationAdapter
+class ChatConversartionActivity : AppCompatActivity() { // otherUserData
+    var chatChannelId = ""
     lateinit var tutorialAdapter: TutorialMessageAdapter
     lateinit var rvChatConversationA: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-        name = intent.getStringExtra("name").toString()
-        textViewChat.text = name
-        if( intent.getStringExtra("image").toString().length > 22 ) {
-            image = intent.getStringExtra("image").toString()
-            Glide.with(this).load(intent.getStringExtra("image").toString()).into(customProfileImage)
-        }
+      //  Log.d("otherUserDataA", "otherUserData = " + otherUserData.toString())
+
+        textViewChat.text = App.otherUserData!!.name
+        Glide.with(this).load( App.otherUserData!!.image).into(customProfileImage)
+
 
         rvChatConversationA = findViewById(R.id.rvChatConversation)
         rvChatConversationA.layoutManager = LinearLayoutManager(this)
         rvChatConversationA.setHasFixedSize(true)
-    //     adapter = ChatConversationAdapter(ArrayList(), this)
-    //     rvChatConversationA.adapter = adapter
+
 
         tutorialAdapter = TutorialMessageAdapter(ArrayList(), this)
         rvChatConversationA.adapter = tutorialAdapter
 
-        sender = intent.getStringExtra("sender").toString()
-        receiver =  intent.getStringExtra("receiver").toString()
-        token = intent.getStringExtra("token").toString()
 
-        SaveConversationMessage().createOrGetCurrentChatChannel(sender, receiver){
+        SaveConversationMessage().createOrGetCurrentChatChannel(App.otherUserData!!.id){
                 chatId -> chatChannelId = chatId
                 getConversationMessages()
         }
@@ -56,8 +53,7 @@ class ChatConversartionActivity : AppCompatActivity() {
                 SaveConversationMessage().saveNewMessage(messageText, chatChannelId)
                 inputChatMessage.setText("")
                 /* create notification  and send */
-                ServiceNotification().sentNotification(sender, receiver, token, messageText, image, name)
-                Log.d("tokentoken", "token: " + token)
+                ServiceNotification().sentNotification(chatChannelId, App.otherUserData!!.id, App.otherUserData!!.token, messageText, App.otherUserData!!.image, App.otherUserData!!.name)
             }
         }
 
@@ -65,13 +61,14 @@ class ChatConversartionActivity : AppCompatActivity() {
 
     private fun getConversationMessages() {
         SaveConversationMessage().getMessagesFromConversation(chatChannelId){
-      //      adapter.addItem(it)
-      //      rvChatConversationA.scrollToPosition(adapter.itemCount - 1)
             tutorialAdapter.addNewItem(it)
-            // rvChatConversationA.scrollToPosition(tutorialAdapter.itemCount - 1)
-            /* scroll from tutorial chat */
             rvChatConversationA.smoothScrollToPosition(tutorialAdapter.itemCount - 1)
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if(intent.getStringExtra("message").toString() == "message"){ startActivity(Intent(this, MainActivity::class.java)); }
     }
 
 

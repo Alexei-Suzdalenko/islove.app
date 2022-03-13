@@ -17,69 +17,56 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import islove.app.ChatConversartionActivity
 import islove.app.R
+import islove.app.assets.classes.App
+import islove.app.assets.classes.User
 import java.lang.Math.random
 
 class MyFirebaseMessaging: FirebaseMessagingService() {
-    override fun onNewToken(token: String) {
-       if (FirebaseAuth.getInstance().currentUser != null) NotificationWork().saveUserToken()
-    }
+    var notId: Int = 0
+    var user: User? = null
+    var age: String = ""
+    var name: String = ""
+    var message: String = ""
+    var intent: Intent? = null
+    override fun onNewToken(token: String) { if (FirebaseAuth.getInstance().currentUser != null) NotificationWork().saveUserToken(); }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        super.onMessageReceived(remoteMessage)
+        super.onMessageReceived(remoteMessage); // Log.d("otherUserDataA", "remoteMessage = " + remoteMessage.data.toString())
+        intent = Intent(applicationContext, ChatConversartionActivity::class.java); intent!!.putExtra("message", "message")
+        val curU = remoteMessage.data
+        name = curU["name"].toString()
+        user = User(curU["sender"].toString(), curU["age"].toString(), "", curU["image"].toString(), "", curU["name"].toString(), "", "", curU["status"].toString(), curU["token"].toString())
 
-   //     if( firebaseUser != null && sented == firebaseUser.uid ){
-   //         if( currentOnlineUser != user ){
-                if( Build.VERSION.SDK_INT > Build.VERSION_CODES.O){
-                    sendOreoNotificatioin(remoteMessage)
-                } else {
-                    sendNotificatioin(remoteMessage)
-                }
-   //         }
-   //     }
-        
+        App.otherUserData = user
+        notId = App.getIdNoification(curU["sender"].toString())
+        message = curU["message"].toString()
+        if( Build.VERSION.SDK_INT > Build.VERSION_CODES.O) sendOreoNotificatioin() else sendNotificatioin()
     }
 
     @SuppressLint("UnspecifiedImmutableFlag")
-    private fun sendNotificatioin(remoteMessage: RemoteMessage) {
-        val intent = Intent(applicationContext, ChatConversartionActivity::class.java)
-        intent.putExtra("sender",  remoteMessage.data["sender"].toString() )
-        intent.putExtra("receiver", remoteMessage.data["receiver"].toString() )
-        intent.putExtra("name", remoteMessage.data["name"].toString() )
-        val title = remoteMessage.data["body"].toString()
-        intent.putExtra("image", remoteMessage.data["image"].toString())
+    private fun sendNotificatioin() {
 
-
-        val rand: Int = (1..999999999).random()
-        val pendingIntent = PendingIntent.getActivity(this, rand, intent, PendingIntent.FLAG_ONE_SHOT)
+        val pendingIntent = PendingIntent.getActivity(this, notId, intent, PendingIntent.FLAG_ONE_SHOT)
         val builder = NotificationCompat.Builder(this)
                .setContentIntent(pendingIntent)
-               .setContentTitle(title)
-               .setContentText("Is Love App")
+               .setContentTitle(message)
+               .setContentText(name)
                .setSmallIcon(R.drawable.email.toInt())
                .setAutoCancel(true)
         val noti = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        noti.notify(rand, builder.build())
+        noti.notify(notId, builder.build())
     }
 
 
     @SuppressLint("UnspecifiedImmutableFlag")
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun sendOreoNotificatioin(remoteMessage: RemoteMessage) {
-        val intent = Intent(applicationContext, ChatConversartionActivity::class.java)
-        intent.putExtra("sender",  remoteMessage.data["sender"].toString() )
-        intent.putExtra("receiver", remoteMessage.data["receiver"].toString() )
-        intent.putExtra("name", remoteMessage.data["name"].toString() )
-        val title = remoteMessage.data["body"].toString()
-        intent.putExtra("image", remoteMessage.data["image"].toString())
+    private fun sendOreoNotificatioin() {
 
-        val rand: Int = (1..999999999).random()
-
-        val pendingIntent = PendingIntent.getActivity(this, rand, intent, PendingIntent.FLAG_ONE_SHOT)
+        val pendingIntent = PendingIntent.getActivity(this, notId, intent, PendingIntent.FLAG_ONE_SHOT)
         val defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val oreoNotification = Oreonotification(this)
-        val builder: Notification.Builder = oreoNotification.getOreoNotification(title,"Is Love App", pendingIntent, defaultSound,  R.drawable.email.toString())
-
-        oreoNotification.getManager!!.notify(rand, builder.build())
+        val builder: Notification.Builder = oreoNotification.getOreoNotification(message, name, pendingIntent, defaultSound,  R.drawable.email.toString())
+        oreoNotification.getManager!!.notify(notId, builder.build())
     }
 
 

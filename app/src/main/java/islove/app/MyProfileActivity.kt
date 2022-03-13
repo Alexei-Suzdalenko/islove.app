@@ -60,11 +60,11 @@ class MyProfileActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun setUserInfo(user: User){
-        if(user.image.isNotEmpty() && user.image.length > 11) Glide.with(this).load(user.image).into(profileImage)
-        setUserName.setText(user.name)
-        setUserStatus.setText(user.status)
-        textViewPlace.text = user.locality
-        setUserAge.setText(user.age)
+        if(user.image.isNotEmpty() && user.image.length > 22) {Glide.with(this).load(user.image).into(profileImage); App.editor.putString("image", user.image).apply(); }
+        if(user.name == "null") setUserName.setText("") else setUserName.setText(user.name)
+        if(user.status == "null") setUserStatus.setText("") else setUserStatus.setText(user.status)
+        if(user.locality == "null") textViewPlace.text = "" else textViewPlace.text = user.locality
+        if(user.age == "null") setUserAge.setText("") else setUserAge.setText(user.age)
         if(user.gender == "man"){ radioIamMan.isChecked = true;      radioIamWoman.isChecked = false; }     else { radioIamMan.isChecked = false;      radioIamWoman.isChecked = true; }
         if(user.search == "man"){ radioSearchMan.isChecked = true; radioSearchWoman.isChecked = false; } else { radioSearchMan.isChecked = false; radioSearchWoman.isChecked = true; }
     }

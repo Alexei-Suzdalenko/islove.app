@@ -48,8 +48,10 @@ class CreateNewAccount(val c: RegisterActivity? = null) {
     fun virifyUserInstance(mainActivity: MainActivity){
         NotificationWork().saveUserToken()
         if(App.sharedPreferences.getString("image", "").toString().length < 11 || App.sharedPreferences.getString("name", "").toString().length < 3){
+            Toast.makeText(mainActivity, mainActivity.resources.getString(R.string.setUserDataAndUploadUserFoto), Toast.LENGTH_LONG).show()
             mainActivity.startActivity(Intent(mainActivity, MyProfileActivity::class.java))
         }
+        BlockUserFire().getListUsersThenBlockedMe()
     }
 
 }

@@ -12,11 +12,13 @@ import com.google.firebase.auth.FirebaseAuth
 import islove.app.R
 import islove.app.assets.adapter.ListUsersAdapter
 import islove.app.assets.api.SaveNewUserData
+import islove.app.assets.classes.App
 import islove.app.assets.classes.User
 class ListUsersFragment : Fragment() {
     lateinit var listUsersAdapter: ListUsersAdapter
     lateinit var rvListUsersRecycler:  RecyclerView
     val miId = FirebaseAuth.getInstance().currentUser?.uid
+    val usersBlocked = App.sharedPreferences.getString("block", "").toString()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.list_users_fragment, container, false)
@@ -27,10 +29,9 @@ class ListUsersFragment : Fragment() {
         rvListUsersRecycler.adapter = listUsersAdapter
 
         SaveNewUserData().getListUsers {
-            if( miId != it.id) listUsersAdapter.addItem(it)
+            if( miId != it.id && ! usersBlocked.contains(it.id, ignoreCase = true) &&  it.name != "null" && it.image != "null")
+                listUsersAdapter.addItem(it)
         }
-
-        rvListUsersRecycler
 
         return view
     }

@@ -8,6 +8,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.viewpager.widget.ViewPager
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -17,12 +18,13 @@ import islove.app.assets.api.CreateNewGroup
 import islove.app.assets.classes.App
 import islove.app.assets.notification.*
 import islove.app.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var currentUser: FirebaseUser? = null
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState); //  FirebaseAuth.getInstance().signOut();startActivity(Intent(this, LoginActivity::class.java)); finish()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -34,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         val viewPager = findViewById<ViewPager>(R.id.viewPager)
         viewPager.adapter = TabsPagerAdapter(this, supportFragmentManager)
         tabLayout.setupWithViewPager(viewPager)
+        if(App.sharedPreferences.getString("image", "").toString().length > 11) Glide.with(this).load(App.sharedPreferences.getString("image", "").toString()).into(profileImage)
+        userName.text = App.sharedPreferences.getString("name" ,"").toString()
     }
 
     override fun onStart() {
@@ -47,9 +51,9 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             // R.id.findFrends -> { startActivity(Intent(this, FindFrendsActivity::class.java)); return true; }
-            R.id.createGroup -> { RequestNewGroup(); return  true; }
+            // R.id.createGroup -> { RequestNewGroup(); return  true; }
             R.id.settingsOption -> { startActivity(Intent(this, MyProfileActivity::class.java)); return true; }
-            R.id.logoutOption -> { FirebaseAuth.getInstance().signOut(); startActivity(Intent(this, LoginActivity::class.java)); finish(); return true; }
+           // R.id.logoutOption -> { FirebaseAuth.getInstance().signOut(); startActivity(Intent(this, LoginActivity::class.java)); finish(); return true; }
             else -> super.onOptionsItemSelected(item)
         }
     }

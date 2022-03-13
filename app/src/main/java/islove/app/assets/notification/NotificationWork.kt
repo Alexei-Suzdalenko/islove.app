@@ -7,6 +7,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
+import islove.app.assets.classes.App
 
 class NotificationWork {
     val id = FirebaseAuth.getInstance().currentUser!!.uid.toString()
@@ -21,7 +22,7 @@ class NotificationWork {
 
                     val tokenUpdate = HashMap<String, Any>()
                           tokenUpdate["time"] = System.currentTimeMillis().toString()
-                          tokenUpdate["token"] = token
+                          tokenUpdate["token"] = token; App.editor.putString("token", token).apply()
                     rootRef.update(tokenUpdate)
                 }
             }

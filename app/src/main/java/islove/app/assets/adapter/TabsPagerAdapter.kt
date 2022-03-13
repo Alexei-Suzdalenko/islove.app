@@ -14,7 +14,7 @@ class TabsPagerAdapter(c: Context, manager: FragmentManager): FragmentPagerAdapt
 
     init {
           fragments.add(ListUsersFragment()); titles.add( c.resources.getString(R.string.listUsers))
-          fragments.add(GroupsFragment()); titles.add( c.resources.getString(R.string.groups))
+          // fragments.add(GroupsFragment()); titles.add( c.resources.getString(R.string.groups))
           fragments.add(ContactsFragment()); titles.add( c.resources.getString(R.string.contacts))
     }
 
