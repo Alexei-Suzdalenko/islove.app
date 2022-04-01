@@ -51,7 +51,6 @@ class CreateNewAccount(val c: RegisterActivity? = null) {
             Toast.makeText(mainActivity, mainActivity.resources.getString(R.string.setUserDataAndUploadUserFoto), Toast.LENGTH_LONG).show()
             mainActivity.startActivity(Intent(mainActivity, MyProfileActivity::class.java))
         }
-        BlockUserFire().getListUsersThenBlockedMe()
     }
 
 }

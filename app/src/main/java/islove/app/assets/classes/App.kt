@@ -3,10 +3,13 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
+import com.google.android.gms.ads.interstitial.InterstitialAd
 import java.util.*
+import kotlin.system.exitProcess
 
 class App: Application() {
     companion object{
+        var realChannelId: String? = null; var listenerDatabaseChagesActivated = "no"
         lateinit var sharedPreferences: SharedPreferences
         lateinit var editor: SharedPreferences.Editor
         fun showToast(c: Context, message: Int){
@@ -29,6 +32,8 @@ class App: Application() {
             }
             return result
         }
+        var mInterstitialAd: InterstitialAd? = null
+        var imageType = ""
     }
     override fun onCreate() {
         super.onCreate()

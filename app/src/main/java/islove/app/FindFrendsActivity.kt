@@ -42,7 +42,7 @@ class FindFrendsActivity : AppCompatActivity() {
                 if(miId != model.id){
                     holder.bind(model, this@FindFrendsActivity)
                     holder.itemViewA.setOnClickListener {
-                        val visitIntent = Intent(applicationContext, ReceiverUserActivity::class.java); visitIntent.putExtra("visit_user_id",  getRef(position).key)
+                        val visitIntent = Intent(applicationContext, VisitReceiverActivity::class.java); visitIntent.putExtra("visit_user_id",  getRef(position).key)
                         visitIntent.putExtra("visit_name", model.name);visitIntent.putExtra("visit_status", model.status); visitIntent.putExtra("visit_image", model.image);
                         startActivity(visitIntent)
                     }

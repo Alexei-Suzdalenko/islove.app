@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".GroupChatActivity">
     <include
-        android:id="@+id/groupChatBarL"
+        android:id="@+id/appBarlayout"
         layout="@layout/custom_chat_bar" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/relativeLayoutChat"
-        android:layout_below="@+id/groupChatBarL"
+        android:layout_below="@+id/appBarlayout"
         android:padding="8dp" />
 
     <RelativeLayout

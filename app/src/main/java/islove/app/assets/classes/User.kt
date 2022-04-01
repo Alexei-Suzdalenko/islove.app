@@ -11,7 +11,7 @@ data class User (
     var postal: String = "",
     var status: String = "",
     var token: String = "",
-    var backImage: String = "",
+    var back: String = "",
     var gender: String = "",
     var search: String = ""
 )

@@ -38,7 +38,7 @@
         <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/drawable/sender_message_layout.xml" value="0.2475" />
         <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/layout-v21/activity_location_permision.xml" value="0.3161231884057971" />
         <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/layout/activity_block_this_user.xml" value="0.3283514492753623" />
-        <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/layout/activity_chat.xml" value="0.29846014492753625" />
+        <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/layout/activity_chat.xml" value="0.25" />
         <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/layout/activity_find_frens.xml" value="0.25" />
         <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/layout/activity_group_chat.xml" value="0.22" />
         <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/layout/activity_location_permision.xml" value="0.3161231884057971" />
@@ -46,6 +46,7 @@
         <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/layout/activity_phone_login.xml" value="0.18" />
         <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/layout/activity_profile_visit.xml" value="0.3016304347826087" />
         <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/layout/activity_settings.xml" value="0.26721014492753625" />
+        <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/layout/activity_show_images.xml" value="0.32135416666666666" />
         <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/layout/app_bar_layout.xml" value="0.26403985507246375" />
         <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/layout/chat_fragment.xml" value="0.30434782608695654" />
         <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/layout/contacts_fragment.xml" value="0.31657608695652173" />
@@ -61,6 +62,7 @@
         <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/layout/register_activity.xml" value="0.3138586956521739" />
         <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/layout/users_display_layout.xml" value="0.2" />
         <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/menu/menu_main.xml" value="0.2828125" />
+        <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/menu/menu_main_conversation.xml" value="0.32135416666666666" />
         <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.196" />
         <entry key="..\:/_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER/islove.app/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.196" />
       </map>

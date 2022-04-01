@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IsLove">
         <activity
+            android:name=".ShowImages"
+            android:exported="false" />
+        <activity
             android:name=".BlockThisUserActivity"
             android:exported="false" />
         <activity
@@ -35,7 +38,7 @@
             android:name=".ChatConversartionActivity"
             android:exported="true" />
         <activity
-            android:name=".ReceiverUserActivity"
+            android:name=".VisitReceiverActivity"
             android:exported="true" />
         <activity
             android:name=".FindFrendsActivity"
@@ -55,7 +58,7 @@
             android:exported="true" />
         <activity
             android:name=".RegisterActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -76,6 +79,9 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/green" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7286158310312043~7618196022" />
     </application>
 
 </manifest>

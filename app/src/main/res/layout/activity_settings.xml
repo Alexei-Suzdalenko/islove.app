@@ -8,17 +8,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".MyProfileActivity">
+    <ImageView
+        android:id="@+id/backImageMyProfile"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/app_name"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/back" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileImage"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="111dp"
         android:src="@drawable/camara"
-        app:civ_border_color="@color/green"
         app:civ_border_width="2dp" />
+
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_below="@+id/profileImage"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/progressBarProfile"
+        android:layout_width="22dp"
+        android:layout_height="22dp" />
 
     <EditText
         android:id="@+id/setUserName"
@@ -35,7 +52,7 @@
         android:background="@drawable/inputs"
         android:layout_marginStart="22dp"
         android:layout_marginEnd="22dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="42dp"
         android:padding="6dp"
         tools:ignore="LabelFor" />
 

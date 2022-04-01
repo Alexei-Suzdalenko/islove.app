@@ -21,28 +21,17 @@ class MyProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         pickImages = registerForActivityResult(ActivityResultContracts.GetContent()){ uri: Uri? ->
-            if(uri != null){
-              SaveNewUserData().saveUserImage(uri){ imageUrl ->
-                  if(imageUrl != "Error") Glide.with(this).load(imageUrl).into(profileImage)
-                  else App.showToast(this, R.string.error)
-              }
-            } else App.showToast(this, R.string.error)
+            if(uri != null) SaveNewUserData().saveUserImage(uri, this, this)
+             else App.showToast(this, R.string.error)
         }
-        profileImage.setOnClickListener { pickImages.launch("image/*"); }
+        profileImage.setOnClickListener            { App.imageType = "image"; pickImages.launch("image/*"); }
+        backImageMyProfile.setOnClickListener { App.imageType = "back";   pickImages.launch("image/*"); }
         SaveUserLocationFirestore().saveUserLocation(this)
 
         if(App.sharedPreferences.getString("image", "").toString().length > 11 && App.sharedPreferences.getString("name", "").toString().length > 2){
-            val user = User(
-                FirebaseAuth.getInstance().currentUser!!.uid,
-                App.sharedPreferences.getString("age", "").toString(),
-                App.sharedPreferences.getString("country", "").toString(),
-                App.sharedPreferences.getString("image", "").toString(),
-                App.sharedPreferences.getString("locality", "").toString(),
-                App.sharedPreferences.getString("name", "").toString() , "", "",
-                App.sharedPreferences.getString("status", "").toString(), "", "",
-                App.sharedPreferences.getString("gender", "").toString(),
-                App.sharedPreferences.getString("search", "").toString()
-            )
+            val user = User(FirebaseAuth.getInstance().currentUser!!.uid, App.sharedPreferences.getString("age", "").toString(), App.sharedPreferences.getString("country", "").toString(), App.sharedPreferences.getString("image", "").toString(),
+                App.sharedPreferences.getString("locality", "").toString(), App.sharedPreferences.getString("name", "").toString() , "", "", App.sharedPreferences.getString("status", "").toString(), App.sharedPreferences.getString("token", "").toString(),
+                App.sharedPreferences.getString("back", "").toString(), App.sharedPreferences.getString("gender", "").toString(), App.sharedPreferences.getString("search", "").toString())
             setUserInfo(user)
         } else { SaveNewUserData().getUserInformationProfile(this){ user -> setUserInfo(user); }}
 
@@ -67,6 +56,7 @@ class MyProfileActivity : AppCompatActivity() {
         if(user.age == "null") setUserAge.setText("") else setUserAge.setText(user.age)
         if(user.gender == "man"){ radioIamMan.isChecked = true;      radioIamWoman.isChecked = false; }     else { radioIamMan.isChecked = false;      radioIamWoman.isChecked = true; }
         if(user.search == "man"){ radioSearchMan.isChecked = true; radioSearchWoman.isChecked = false; } else { radioSearchMan.isChecked = false; radioSearchWoman.isChecked = true; }
+        if(user.back.isNotEmpty() && user.back.length > 22 ) {Glide.with(this).load(user.back).into(backImageMyProfile); App.editor.putString("back", user.back).apply()}
     }
 
 

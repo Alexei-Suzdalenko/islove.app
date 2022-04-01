@@ -1,6 +1,7 @@
 package islove.app
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -12,19 +13,36 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import islove.app.assets.adapter.TabsPagerAdapter
 import islove.app.assets.api.CreateNewAccount
 import islove.app.assets.api.CreateNewGroup
+import islove.app.assets.classes.Addss
 import islove.app.assets.classes.App
 import islove.app.assets.notification.*
 import islove.app.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding; val miId = FirebaseAuth.getInstance().currentUser!!.uid; var usersBlockedMe = ""
     private var currentUser: FirebaseUser? = null
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState); //  FirebaseAuth.getInstance().signOut();startActivity(Intent(this, LoginActivity::class.java)); finish()
+        super.onCreate(savedInstanceState)
+
+         App.editor.putString("block", usersBlockedMe).apply()
+        FirebaseDatabase.getInstance().reference.child("block/$miId").addValueEventListener(object:
+            ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {}
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for( snaps in snapshot.children ){ val valueData = snaps.value; usersBlockedMe += ", $valueData" }
+                App.editor.putString("block", usersBlockedMe).apply()
+            }
+        })
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -38,6 +56,10 @@ class MainActivity : AppCompatActivity() {
         tabLayout.setupWithViewPager(viewPager)
         if(App.sharedPreferences.getString("image", "").toString().length > 11) Glide.with(this).load(App.sharedPreferences.getString("image", "").toString()).into(profileImage)
         userName.text = App.sharedPreferences.getString("name" ,"").toString()
+
+        profileImage.setOnClickListener { startActivity(Intent(this, MyProfileActivity::class.java)) }
+        userName.setOnClickListener    { startActivity(Intent(this, MyProfileActivity::class.java)) }
+        Addss.smartAdd(this)
     }
 
     override fun onStart() {

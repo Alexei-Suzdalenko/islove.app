@@ -37,7 +37,7 @@ class Oreonotification(base: Context?): ContextWrapper(base) {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getOreoNotification(title: String?, body: String?, pendingIntent: PendingIntent?, soundUri: Uri?, icon: String?): Notification.Builder {
+    fun getOreoNotification(title: String?, body: String?, pendingIntent: PendingIntent?): Notification.Builder {
         return Notification.Builder(applicationContext, "channel_id")
                 .setContentIntent(pendingIntent)
                 .setContentTitle(title)

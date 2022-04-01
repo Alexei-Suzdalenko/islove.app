@@ -11,7 +11,6 @@ import java.util.*
 class SaveGropsMessage(val groupName: String?) {
     val userId = FirebaseAuth.getInstance().currentUser!!.uid
     private val groupNameR = groupName ?: ""
-    val refGroupDatabase = FirebaseDatabase.getInstance().reference.child("groups").child(groupNameR)
     val refFirestoreGroupChat = FirebaseFirestore.getInstance().collection("groups").document("groups").collection(groupNameR)
         // .orderBy("time", Query.Direction.ASCENDING)
 
@@ -24,27 +23,11 @@ class SaveGropsMessage(val groupName: String?) {
              messageInfoMap["message"] = message
              messageInfoMap["time"] = System.currentTimeMillis()
              messageInfoMap["userid"] = userId
-        // no guardar en database realtime
-        /// refGroupDatabase.child(refGroupDatabase.push().key.toString()).updateChildren(messageInfoMap)
-
         refFirestoreGroupChat.document().set(messageInfoMap)
     }
 
 
         fun getMessages( onComplete:(message: MessageGroup) -> Unit) {
-            //  refGroupDatabase.addChildEventListener(object: ChildEventListener{
-            //      override fun onChildAdded(dataSnapshot: DataSnapshot, previousChildName: String?) {
-            //         val message = dataSnapshot.getValue<Message>()
-            //          if (message != null) {
-            //              onComplete(message)
-            //          }
-            //      }
-            //      override fun onChildChanged(p0: DataSnapshot, p1: String?) {}
-            //      override fun onChildRemoved(p0: DataSnapshot) {}
-            //      override fun onChildMoved(p0: DataSnapshot, p1: String?) {}
-            //      override fun onCancelled(p0: DatabaseError) {}
-            //  })
-            // return all messages, how to get only last message ?¿¿?¿?
             refFirestoreGroupChat.orderBy("time", Query.Direction.ASCENDING).addSnapshotListener { snapshot, e ->
                 if(snapshot!!.documents.size > 0) {
                     for (snaps in snapshot.documents) {

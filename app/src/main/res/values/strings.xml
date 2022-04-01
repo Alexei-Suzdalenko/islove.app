@@ -69,4 +69,7 @@
     <string name="writeReason">Write the reason for blocking or reporting user misbehavior</string>
     <string name="sent">Sent</string>
     <string name="infoSented">Thank you</string>
+    <string name="reportUserBehavior">Report user behavior</string>
+    <string name="blockThisUser">Block this user</string>
+    <string name="report">Report</string>
 </resources>
