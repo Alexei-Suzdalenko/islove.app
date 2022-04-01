@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">IS LOVE</string>
+    <string name="app_name">Love Chat</string>
     <string name="userName">User name</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="chats">Chats</string>
@@ -62,7 +62,7 @@
     <string name="userAge">User age</string>
     <string name="myGender">My gender</string>
     <string name="man">Man</string>
-    <string name="woman">Woman</string>
+    <string name="woman">Mulher</string>
     <string name="meSearch">I am looking for</string>
     <string name="setUserDataAndUploadUserFoto">Set your data and upload your profile image</string>
     <string name="block">Block this user</string>

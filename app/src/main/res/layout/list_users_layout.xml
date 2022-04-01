@@ -11,47 +11,4 @@
         android:layout_width="81dp"
         android:layout_height="81dp"
         />
-    <!--
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="UseCompoundDrawables">
-        <TextView
-            android:id="@+id/nameListUser"
-            android:layout_marginStart="11dp"
-            android:maxLines="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="textStart"
-            android:textStyle="bold"
-            android:textSize="17sp"
-            android:textColor="@color/black"
-            android:text="@string/app_name"
-            />
-        <TextView
-            android:id="@+id/statusListUser"
-            android:layout_marginStart="11dp"
-            android:maxLines="1"
-            android:layout_marginTop="11dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="textStart"
-            android:textStyle="bold"
-            android:textSize="17sp"
-            android:textColor="@color/black"
-            android:text="@string/app_name"
-            />
-        <ImageView
-            android:id="@+id/onlineListUser"
-            android:layout_marginStart="11dp"
-            android:visibility="gone"
-            android:layout_marginTop="11dp"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/online"
-            />
-    </LinearLayout>
-    -->
 </LinearLayout>

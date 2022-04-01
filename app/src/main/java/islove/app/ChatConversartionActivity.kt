@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import islove.app.assets.adapter.TutorialMessageAdapter
+import islove.app.assets.classes.Addss
 import islove.app.assets.classes.App
 import islove.app.assets.classes.App.Companion.otherUserData
 import islove.app.assets.classes.User
@@ -79,8 +80,12 @@ class ChatConversartionActivity : AppCompatActivity() { // otherUserData
                     App.sharedPreferences.getString("token", "").toString()
                 )
             }
+            Addss.startM(this)
         }
-        Toast.makeText(this, "onCreateOptionsMenu", Toast.LENGTH_SHORT).show()
+
+
+
+
     }
 
     private fun getConversationMessages() {

@@ -11,7 +11,7 @@ class CreateChatChannelFirebase {
     private val miId = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
     fun createOrGetChatChannle(otherUserId: String, onComplete: (channelId: String) -> Unit) {
-        firebaseReference.child("enganched_chat/$miId/$otherUserId").get().addOnSuccessListener  {
+        firebaseReference.child("enganched_chat/$otherUserId/$otherUserId").get().addOnSuccessListener  {
             if(it.exists()) {
                 val idChat = it.child("id").value.toString()
                 onComplete( idChat )
@@ -26,5 +26,10 @@ class CreateChatChannelFirebase {
                 onComplete(newChatId)
             }
         }
+    }
+
+    fun deleteUserConversation(otherUserId: String, onComplete: (res: String) -> Unit){
+        FirebaseFirestore.getInstance().collection("enganched_chat").document(miId).collection("channel").document(otherUserId)
+            .delete().addOnSuccessListener { onComplete("ok") }
     }
 }

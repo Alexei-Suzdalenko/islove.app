@@ -1,4 +1,5 @@
 package islove.app.assets.classes
+import android.util.Log
 import android.widget.RelativeLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.gms.ads.*
@@ -29,7 +30,7 @@ object Addss {
         var countMessage = App.sharedPreferences.getInt("count", 0).toInt(); countMessage++
         App.editor.putInt("count", countMessage).apply()
 
-        if (countMessage > 11) {
+        if (countMessage > 10) {
             val adRequest = AdRequest.Builder().build()
             InterstitialAd.load(context, "ca-app-pub-7286158310312043/5921970972", adRequest, object : InterstitialAdLoadCallback() {
                     override fun onAdLoaded(interstitialAd: InterstitialAd) {
@@ -52,7 +53,7 @@ object Addss {
             override fun onAdLoaded() {
                 var size = 211
                 if (mAdView.height > 15) size = mAdView.height
-                params.setMargins(0, (size / 1.5).toInt(), 0, size)
+                params.setMargins(0, (size * 1.5).toInt(), 0, (size/1.2).toInt())
                 activity.viewPager.layoutParams = params
 
             }
