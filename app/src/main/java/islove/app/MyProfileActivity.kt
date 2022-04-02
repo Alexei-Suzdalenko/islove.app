@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import islove.app.assets.api.SaveUserLocationFirestore
 import islove.app.assets.classes.User
-
 class MyProfileActivity : AppCompatActivity() {
     lateinit var pickImages: ActivityResultLauncher<String>
 
@@ -22,13 +21,12 @@ class MyProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
         pickImages = registerForActivityResult(ActivityResultContracts.GetContent()){ uri: Uri? ->
             if(uri != null) SaveNewUserData().saveUserImage(uri, this, this)
-             else App.showToast(this, R.string.error)
         }
         profileImage.setOnClickListener            { App.imageType = "image"; pickImages.launch("image/*"); }
         backImageMyProfile.setOnClickListener { App.imageType = "back";   pickImages.launch("image/*"); }
         SaveUserLocationFirestore().saveUserLocation(this)
 
-        if(App.sharedPreferences.getString("image", "").toString().length > 11 && App.sharedPreferences.getString("name", "").toString().length > 2){
+        if(App.sharedPreferences.getString("image", "").toString().length > 11 && App.sharedPreferences.getString("name", "").toString().length > 2) {
             val user = User(FirebaseAuth.getInstance().currentUser!!.uid, App.sharedPreferences.getString("age", "").toString(), App.sharedPreferences.getString("country", "").toString(), App.sharedPreferences.getString("image", "").toString(),
                 App.sharedPreferences.getString("locality", "").toString(), App.sharedPreferences.getString("name", "").toString() , "", "", App.sharedPreferences.getString("status", "").toString(), App.sharedPreferences.getString("token", "").toString(),
                 App.sharedPreferences.getString("back", "").toString(), App.sharedPreferences.getString("gender", "").toString(), App.sharedPreferences.getString("search", "").toString())

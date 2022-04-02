@@ -50,7 +50,7 @@ class SaveUserLocationFirestore {
                   dataUser["postal"] = addresses[0].postalCode.toString().lowercase(Locale.getDefault()); App.editor.putString("postal", addresses[0].postalCode.toString().lowercase(Locale.getDefault()))
               }
           } catch (e: Exception){
-              Toast.makeText(activity, "Error " + e.message.toString(), Toast.LENGTH_LONG).show()
+              // Toast.makeText(activity, "Error " + e.message.toString(), Toast.LENGTH_LONG).show()
           }
       } else {
           Toast.makeText(activity.applicationContext, activity.resources.getString(R.string.thisAppNeedLocation), Toast.LENGTH_LONG).show()

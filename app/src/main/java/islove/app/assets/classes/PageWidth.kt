@@ -27,8 +27,12 @@ object PageWidth {
             width = size.x
             height = size.y
         }
-        val items: Int =  (width / 250).toInt()
+        val items: Int =  (width / 150).toInt()
 
-        return items
+        if(width > 2000)
+            return (width / 250).toInt()
+        else
+            return 4
+
     }
 }

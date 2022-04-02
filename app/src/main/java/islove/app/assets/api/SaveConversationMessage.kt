@@ -12,17 +12,28 @@ import islove.app.assets.classes.MessageChat
 
 class SaveConversationMessage {
     val miId = FirebaseAuth.getInstance().currentUser!!.uid.toString()
-    val enganchedMyChat = FirebaseFirestore.getInstance().collection("enganchedChat").document(miId)
-    val firestore = FirebaseFirestore.getInstance().collection("conversation").document("chats")
+    val enganchedMyChat = FirebaseFirestore.getInstance().collection("enganched")
+    val firestore = FirebaseFirestore.getInstance().collection("conversation").document("chat")
 
     fun createOrGetCurrentChatChannel(receiver: String, onComplete:(chatId: String) -> Unit) {
-        enganchedMyChat.collection("chat").document(receiver).get().addOnSuccessListener { document ->
-            if(document.exists()){ val conversationId = document["id"].toString(); onComplete(conversationId)
+        enganchedMyChat.document( receiver).collection("chat").document(miId).get().addOnSuccessListener { document ->
+            if(document.exists()) {
+                val conversationId = document["id"].toString()
+                enganchedMyChat.document(miId).collection("chat").document(receiver).set(mapOf("id" to conversationId))
+                onComplete(conversationId)
             } else {
                 val conversId = System.currentTimeMillis().toString()
-                enganchedMyChat.collection("chat").document(receiver).set(Conversation(conversId))
-                FirebaseFirestore.getInstance().collection("enganchedChat").document(receiver).collection("chat").document(miId).set(Conversation(conversId)).addOnSuccessListener { onComplete(conversId) }
+                enganchedMyChat.document(miId).collection("chat").document(receiver).set(Conversation(conversId))
+                enganchedMyChat.document(receiver).collection("chat").document(miId).set(Conversation(conversId)).addOnSuccessListener { onComplete(conversId) }
             }
+        }
+    }
+
+    // cuando entro desde listado de usuarios o desde listado de conversaciones !!!!
+    fun getConversationChatChannel(otherUserId: String, onComplete: (channelId: String?) -> Unit){
+        enganchedMyChat.document( miId ).collection("chat").document(otherUserId).get().addOnSuccessListener  {
+            if(it.exists()) { val idChat = it["id"].toString(); onComplete( idChat )
+            } else onComplete(null)
         }
     }
 
@@ -33,7 +44,7 @@ class SaveConversationMessage {
     }
 
     fun getMessagesFromConversation(chatChannelId: String, onComplete: (message: MessageChat) -> Unit){
-        val query = FirebaseFirestore.getInstance().collection("conversation").document("chats").collection(chatChannelId).orderBy("time", Query.Direction.ASCENDING)
+        val query = firestore.collection(chatChannelId).orderBy("time", Query.Direction.ASCENDING)
         query.addSnapshotListener { snapshot, e ->
             if(snapshot!!.documents.size > 0) {
                 for (snaps in snapshot.documents) {

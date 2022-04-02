@@ -105,13 +105,13 @@ class SaveNewUserData {
 
     fun getListUsers( onComplete: (result: User) -> Unit){
         val country = App.sharedPreferences.getString("country", "es").toString()
-        val gender  = App.sharedPreferences.getString("gender", "man").toString() // yo soy hombre, busco mujer => busco gender=mujer, search=
+        val gender  = App.sharedPreferences.getString("gender", "man").toString()
         val search  = App.sharedPreferences.getString("search", "man").toString()
-        Log.d("userDataS", id+ ", gender="+gender+ ", " + "search="+search)
+
         refListUsers
-           // .whereEqualTo("country", country)
-           // .whereEqualTo("gender", search)
-           // .whereEqualTo("search", gender)
+            .whereEqualTo("country", country)
+            .whereEqualTo("gender", search)
+            .whereEqualTo("search", gender)
             .get().addOnSuccessListener  { documents ->
             for (it in documents) {
               val  user = User(it["id"].toString(), it["age"].toString(), it["country"].toString(), it["image"].toString(), it["locality"].toString(), it["name"].toString(), it["online"].toString(), it["postal"].toString(), it["status"].toString(), it["token"].toString(), it["back"].toString())
@@ -124,7 +124,7 @@ class SaveNewUserData {
     fun getListIdsContacts( onComplete: (result: User) -> Unit ){
         val usersBlocked = App.sharedPreferences.getString("block", "").toString()
         val listChatsIdsContact = mutableListOf <String>()
-        FirebaseFirestore.getInstance().collection("enganchedChat").document(id).collection("chat").get().addOnSuccessListener { documents ->
+        FirebaseFirestore.getInstance().collection("enganched").document(id).collection("chat").get().addOnSuccessListener { documents ->
             for(doc in documents.documents) {
                 if(! usersBlocked.contains(doc.id, ignoreCase = true)) listChatsIdsContact.add(doc.id)
             }

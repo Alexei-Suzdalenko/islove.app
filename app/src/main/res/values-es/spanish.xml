@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Love Chat - Buscar pareja</string>
+    <string name="app_name">Love Chat</string>
     <string name="userName">Nombre del usuario</string>
     <string name="hello_blank_fragment">Hola fragmento en blanco</string>
     <string name="chats">Chats</string>
@@ -73,6 +73,4 @@
     <string name="reportUserBehavior">Informar del comportamiento del usuario</string>
     <string name="blockThisUser">Bloquear a este usuario</string>
     <string name="report">Informar</string>
-
-    Traducción realizada con la versión gratuita del traductor www.DeepL.com/Translator
 </resources>

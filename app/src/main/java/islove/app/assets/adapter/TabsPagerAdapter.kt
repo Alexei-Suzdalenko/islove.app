@@ -4,16 +4,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import islove.app.R
-import islove.app.assets.fragments.ListUsersFragment
+import islove.app.assets.fragments.SearchUsersFragment
 import islove.app.assets.fragments.ContactsFragment
-import islove.app.assets.fragments.GroupsFragment
 
 class TabsPagerAdapter(c: Context, manager: FragmentManager): FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
     private val  fragments: ArrayList<Fragment> = ArrayList()
     private val titles: ArrayList<String> = ArrayList()
 
     init {
-          fragments.add(ListUsersFragment()); titles.add( c.resources.getString(R.string.listUsers))
+          fragments.add(SearchUsersFragment()); titles.add( c.resources.getString(R.string.listUsers))
           // fragments.add(GroupsFragment()); titles.add( c.resources.getString(R.string.groups))
           fragments.add(ContactsFragment()); titles.add( c.resources.getString(R.string.contacts))
     }
