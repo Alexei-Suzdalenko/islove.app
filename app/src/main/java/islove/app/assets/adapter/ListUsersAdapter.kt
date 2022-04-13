@@ -14,7 +14,7 @@ import islove.app.R
 import islove.app.VisitReceiverActivity
 import islove.app.assets.classes.App
 import islove.app.assets.classes.User
-class ListUsersAdapter(private val list: ArrayList<User>, val c: Context):  RecyclerView.Adapter<ListUsersAdapter.InnerClassDescription>() {
+class ListUsersAdapter(private var list: MutableList<User>, val c: Context):  RecyclerView.Adapter<ListUsersAdapter.InnerClassDescription>() {
     class InnerClassDescription(view: View) : RecyclerView.ViewHolder(view) {
         val image = view.findViewById<CircleImageView>(R.id.imageListUser)
     }
@@ -36,4 +36,7 @@ class ListUsersAdapter(private val list: ArrayList<User>, val c: Context):  Recy
 
     @SuppressLint("NotifyDataSetChanged")
     fun addItem(user: User) { list.add(user); notifyDataSetChanged(); }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun addListUsers(mutableList: MutableList<User>){ list = mutableList; notifyDataSetChanged() }
 }

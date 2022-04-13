@@ -9,6 +9,7 @@ import kotlin.system.exitProcess
 
 class App: Application() {
     companion object{
+        var listAllUsers: MutableList<User> = mutableListOf()
         var realChannelId: String? = null; var listenerDatabaseChagesActivated = "no"
         lateinit var sharedPreferences: SharedPreferences
         lateinit var editor: SharedPreferences.Editor

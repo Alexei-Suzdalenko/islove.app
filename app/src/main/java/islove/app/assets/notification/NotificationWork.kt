@@ -23,6 +23,7 @@ class NotificationWork {
                     val tokenUpdate = HashMap<String, Any>()
                           tokenUpdate["time"] = System.currentTimeMillis().toString()
                           tokenUpdate["token"] = token; App.editor.putString("token", token).apply()
+                          // tokenUpdate["email"] = token; App.sharedPreferences.getString("email", " ").toString()
                     rootRef.update(tokenUpdate)
                 }
             }

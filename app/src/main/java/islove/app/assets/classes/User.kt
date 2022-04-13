@@ -13,5 +13,6 @@ data class User (
     var token: String = "",
     var back: String = "",
     var gender: String = "",
-    var search: String = ""
+    var search: String = "",
+    var email: String = ""
 )

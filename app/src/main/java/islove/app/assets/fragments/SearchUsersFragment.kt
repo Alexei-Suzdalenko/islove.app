@@ -1,5 +1,6 @@
 package islove.app.assets.fragments
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import islove.app.R
 import islove.app.assets.adapter.ListUsersAdapter
+import islove.app.assets.api.DeleteUsers
 import islove.app.assets.api.SaveNewUserData
 import islove.app.assets.classes.App
 import islove.app.assets.classes.PageWidth.GetSizesPageItems
@@ -32,11 +34,14 @@ class SearchUsersFragment : Fragment() {
         rvListUsersRecycler.adapter = listUsersAdapter
 
         view.loaderSearchProgressbar.visibility = View.VISIBLE
-
+        App.listAllUsers.clear()
 
         SaveNewUserData().getListUsers {
-            if( miId != it.id && ! usersBlocked.contains(it.id, ignoreCase = true) &&  it.name != "null" && it.image != "null") listUsersAdapter.addItem(it)
+            listUsersAdapter.addListUsers(it)
             view.loaderSearchProgressbar.visibility = View.GONE
+
+
+            DeleteUsers().startDeleting(App.listAllUsers)
         }
 
         return view
