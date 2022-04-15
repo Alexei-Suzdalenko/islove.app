@@ -106,7 +106,7 @@ class SaveNewUserData {
     fun getListUsers( onComplete: (resultUsers: MutableList<User>) -> Unit){
         val resultUsers: MutableList<User> = mutableListOf()
         val usersBlocked = App.sharedPreferences.getString("block", "").toString()
-        val country = App.sharedPreferences.getString("country", "es").toString()
+        val country = App.sharedPreferences.getString("country", "en").toString()
         val gender  = App.sharedPreferences.getString("gender", "man").toString()
         val search  = App.sharedPreferences.getString("search", "man").toString()
 
@@ -116,7 +116,7 @@ class SaveNewUserData {
             // .whereEqualTo("search", gender)
             .get().addOnSuccessListener  { documents ->
             for (it in documents) {
-              val  user = User(it["id"].toString(), it["age"].toString(), it["country"].toString(), it["image"].toString(), it["locality"].toString(), it["name"].toString(), it["online"].toString(), it["postal"].toString(), it["status"].toString(), it["token"].toString(), it["back"].toString(), "", "", it["email"].toString())
+                val  user = User(it["id"].toString(), it["age"].toString(), it["country"].toString(), it["image"].toString(), it["locality"].toString(), it["name"].toString(), it["online"].toString(), it["postal"].toString(), it["status"].toString(), it["token"].toString(), it["back"].toString(), "", "", it["email"].toString())
                 App.listAllUsers.add(user)
                 if( id != user.id && ! usersBlocked.contains(user.id, ignoreCase = true) &&  user.name != "null" && user.image != "null"){ resultUsers.add(user) }
             }
