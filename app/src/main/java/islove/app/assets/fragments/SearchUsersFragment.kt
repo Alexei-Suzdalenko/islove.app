@@ -41,7 +41,8 @@ class SearchUsersFragment : Fragment() {
             view.loaderSearchProgressbar.visibility = View.GONE
 
 
-           // DeleteUsers().startDeleting(App.listAllUsers)
+            // DeleteUsers().startDeleting(App.listAllUsers)
+            //  15/04/2022
         }
 
         return view
