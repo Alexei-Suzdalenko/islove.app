@@ -32,7 +32,9 @@ class MainActivity : AppCompatActivity() {
     private var currentUser: FirebaseUser? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        // key app : svoboda_key.jks
+        // key app folder: C:\_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER\islove.app
+        // 13:42 15/04/2022
          App.editor.putString("block", usersBlockedMe).apply()
         FirebaseDatabase.getInstance().reference.child("block/$miId").addValueEventListener(object:
             ValueEventListener {
