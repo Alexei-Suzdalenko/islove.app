@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener
 import islove.app.assets.adapter.TabsPagerAdapter
 import islove.app.assets.api.CreateNewAccount
 import islove.app.assets.api.CreateNewGroup
+import islove.app.assets.api.ShowAlertForGoogle
 import islove.app.assets.classes.Addss
 import islove.app.assets.classes.App
 import islove.app.assets.notification.*
@@ -67,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         currentUser = FirebaseAuth.getInstance().currentUser
         if(currentUser == null) { startActivity(Intent(this, LoginActivity::class.java)); finish()
         } else CreateNewAccount().virifyUserInstance(this)
+        ShowAlertForGoogle.showAlert(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean { menuInflater.inflate(R.menu.menu_main, menu); return true }
