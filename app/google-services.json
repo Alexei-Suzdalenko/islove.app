@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "625811824205",
-    "firebase_url": "https://this-is-love-app-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "this-is-love-app",
-    "storage_bucket": "this-is-love-app.appspot.com"
+    "project_number": "465167849228",
+    "firebase_url": "https://chat-islove-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "chat-islove",
+    "storage_bucket": "chat-islove.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:625811824205:android:3a88958202b4ddcc724604",
+        "mobilesdk_app_id": "1:465167849228:android:452e5b824e59c9286c9b29",
         "android_client_info": {
           "package_name": "islove.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "625811824205-72dt8mt7us235gsegha7b0ai6lnbgmp2.apps.googleusercontent.com",
+          "client_id": "465167849228-2c4loieme9mohuj03sq0n3if5agcfumr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "islove.app",
+            "certificate_hash": "e44e1a7f7c00ddcad2e2a70fa743e24260bfe8f7"
+          }
+        },
+        {
+          "client_id": "465167849228-20gh50jhatcdfanpiuo2ld1pi8b5qglm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCCFO8CT92LwjGEZstCE3pc_GyCGP3D2mE"
+          "current_key": "AIzaSyDPW5Y7MxUj7-AQBIpgoFT2GS_CGoqGjs8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "625811824205-72dt8mt7us235gsegha7b0ai6lnbgmp2.apps.googleusercontent.com",
+              "client_id": "465167849228-20gh50jhatcdfanpiuo2ld1pi8b5qglm.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
