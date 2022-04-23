@@ -49,6 +49,9 @@ class App: Application() {
   svoboda2...
 
   C:\_OJO_NEW_ACCOUNT_ANDROID_DEVELOPER\svoboda_key.jks
+  svoboda
+  key
+  svoboda
 
 */
 

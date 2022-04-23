@@ -12,7 +12,7 @@ object ShowAlertForGoogle {
                 val googlePersonViewAlert = App.sharedPreferences.getBoolean("view", false)
                 val resStr = URL("https://alexei-suzdalenko.github.io/r-radio/islove-google.txt").readText()
                 activity.runOnUiThread{
-                    if(!googlePersonViewAlert && resStr.contains("ok")) showAlertDialogReal(activity)
+                    if(!googlePersonViewAlert && resStr.contains("ok") && false) showAlertDialogReal(activity)
                 }
             } catch (e: Exception){}
         }
